@@ -1,0 +1,28 @@
+Параметры поиска для
+MHEV/HEV: потребление топлива
+
+Toyota Hybrid Synergy Drive (HSD, power-split)
+
+2022 Toyota Prius 1.8L (4.4 / 4.7 / 4.5) (60-100 7.4s) vs 2022 Toyota Corolla (7.8 / 6.2 / 7.1) - EPA
+2024 Toyota Camry Hybrid LE 2.5L  (4.6 / 4.4 / 4.5) (60-100 4.9s) vs 2024 Toyota Camry LE (8.4 / 6.0 / 7.3) - EPA
+2020 Ford Fusion Hybrid 2.0  (5.5 / 5.7 / 5.6)(60-100 5.2s) vs 2020 Ford Fusion 2.0 (11.2 / 7.6 / 9.4) - EPA
+
+Parallel Inline HEV
+
+2024 BMW 530d Hybrid 3.0L (Stadt/Land/Verbrauch 6,2/4,9/5,6)(CO₂-Ausstoß EcoTest 174 g/km)(60-100 km/h 3,2 s) vs 2018 BMW 530d 3.0L (Stadt/Land/Verbrauch 7,0/5,4/6,3)(CO₂-Ausstoß EcoTest 199 g/km) - ADAC
+
+2020 Hyundai Sonata Hybrid 2.0 (5.2 / 4.6 / 5.0)(60-100 5.4s) vs 2019 Hyundai Sonata 2.0 (10.2 / 7.3 / 9.0) - EPA
+2021 Hyundai Elantra 1.6 (4.8 / 4.5 / 4.7)(60-100 8.1s) vs 2020 Hyundai Elantra (9.0 / 7.1 / 8.1) - EPA
+
+Multi-mode series HEV
+
+2020 Honda Accord Hybrid 2.0 (4.9 / 5.0 / 4.9)(60-100 5.5s)vs 2020 Honda Accord (10.2 / 6.9 / 8.7) - EPA
+2015 Honda Civic hybrid 1.5 (5.5 / 5.2 / 5.3)(60-100 8.9s) vs 2016 Honda Civic 1.5 (7.6 / 5.7 / 6.7) - EPA 
+2020-2023 Honda Jazz 1.5 i-MMD (Stadt/Land/BAB 3,1/4,7/7,2)(EcoTest-Verbrauch 5,1)(CO₂-Ausstoß EcoTest 142 g/km)(60-100 km/h 6,4 s) vs 2018 Honda Jazz 1.5 i-VTEC (Stadt/Land/BAB 5,8/5,5/7,3)(EcoTest-Verbrauch 6,1)(CO₂-Ausstoß EcoTest 166  g/km) - ADAC
+
+Mild Hybrid
+
+ADAC:
+2012 Honda Insight II 1.3 (Stadt/Land/Verbrauch 4,4/ 3,9/ 4,6)(CO₂-Ausstoß EcoTest 108 g/km)(60-100 km/h 8,2 s) vs 2017 Honda Jazz / Fit 1.3 i-VTEC (Stadt/Land/Verbrauch 6,0/5,0/5,6)(CO₂-Ausstoß EcoTest 153  g/km)
+2024 VW Golf 1.5 eTSI (Stadt/Land/Verbrauch 5,5/5,1/5,7)(CO₂-Ausstoß EcoTest 160 g/km)(60-100 km/h 6,6 s) vs 2024 VW Golf 1.5 TSI (Stadt/Land/Verbrauch 6,1/5,0/5,8)(CO₂-Ausstoß EcoTest 159 g/km)
+2025 Audi A5 2.0 TDI MHEV (Stadt/Land/Verbrauch 5,0/5,4/5,8)(CO₂-Ausstoß EcoTest 178 g/km)(60-100 km/h 4,3 s) vs 2017 Audi A5 2.0 TFSI (Stadt/Land/Verbrauch 8,1/6,2/7,2)(CO₂-Ausstoß EcoTest 196 g/km)

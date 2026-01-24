@@ -1,0 +1,35 @@
+[0] Config.pm:328> INFO - This is Biber 2.21
+[0] Config.pm:331> INFO - Logfile is 'research.blg'
+[193] biber-MSWIN64:342> INFO - === 
+[268] Biber.pm:421> INFO - Reading 'research.bcf'
+[574] Biber.pm:1002> INFO - Found 20 citekeys in bib section 0
+[596] Biber.pm:4487> INFO - Processing section 0
+[613] Biber.pm:4678> INFO - Looking for bibtex file 'biblio.bib' for section 0
+[673] bibtex.pm:1713> INFO - LaTeX decoding ...
+[706] bibtex.pm:1519> INFO - Found BibTeX data source 'biblio.bib'
+[902] UCollate.pm:68> INFO - Overriding locale 'ru-RU' defaults 'variable = shifted' with 'variable = non-ignorable'
+[902] UCollate.pm:68> INFO - Overriding locale 'ru-RU' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[902] Biber.pm:4307> INFO - Sorting list 'none/global//global/global/global' of type 'entry' with template 'none' and locale 'ru-RU'
+[902] Biber.pm:4313> INFO - No sort tailoring available for locale 'ru-RU'
+[921] bbl.pm:676> INFO - Writing 'research.bbl' with encoding 'UTF-8'
+[937] bbl.pm:779> INFO - Output to research.bbl
+[937] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\Admin\AppData\Local\Temp\biber_tmp_ArZV\a9e03cb3043b9e2c02591da84105bb68_16752.utf8, line 3, warning: 28 characters of junk seen at toplevel
+[938] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\Admin\AppData\Local\Temp\biber_tmp_ArZV\a9e03cb3043b9e2c02591da84105bb68_16752.utf8, line 16, warning: 74 characters of junk seen at toplevel
+[938] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\Admin\AppData\Local\Temp\biber_tmp_ArZV\a9e03cb3043b9e2c02591da84105bb68_16752.utf8, line 28, warning: 83 characters of junk seen at toplevel
+[938] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\Admin\AppData\Local\Temp\biber_tmp_ArZV\a9e03cb3043b9e2c02591da84105bb68_16752.utf8, line 40, warning: 28 characters of junk seen at toplevel
+[938] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\Admin\AppData\Local\Temp\biber_tmp_ArZV\a9e03cb3043b9e2c02591da84105bb68_16752.utf8, line 52, warning: 52 characters of junk seen at toplevel
+[938] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\Admin\AppData\Local\Temp\biber_tmp_ArZV\a9e03cb3043b9e2c02591da84105bb68_16752.utf8, line 61, warning: 36 characters of junk seen at toplevel
+[938] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\Admin\AppData\Local\Temp\biber_tmp_ArZV\a9e03cb3043b9e2c02591da84105bb68_16752.utf8, line 69, warning: 82 characters of junk seen at toplevel
+[938] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\Admin\AppData\Local\Temp\biber_tmp_ArZV\a9e03cb3043b9e2c02591da84105bb68_16752.utf8, line 77, warning: 56 characters of junk seen at toplevel
+[938] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\Admin\AppData\Local\Temp\biber_tmp_ArZV\a9e03cb3043b9e2c02591da84105bb68_16752.utf8, line 88, warning: 50 characters of junk seen at toplevel
+[938] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\Admin\AppData\Local\Temp\biber_tmp_ArZV\a9e03cb3043b9e2c02591da84105bb68_16752.utf8, line 96, warning: 30 characters of junk seen at toplevel
+[938] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\Admin\AppData\Local\Temp\biber_tmp_ArZV\a9e03cb3043b9e2c02591da84105bb68_16752.utf8, line 104, warning: 63 characters of junk seen at toplevel
+[939] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\Admin\AppData\Local\Temp\biber_tmp_ArZV\a9e03cb3043b9e2c02591da84105bb68_16752.utf8, line 115, warning: 53 characters of junk seen at toplevel
+[939] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\Admin\AppData\Local\Temp\biber_tmp_ArZV\a9e03cb3043b9e2c02591da84105bb68_16752.utf8, line 127, warning: 36 characters of junk seen at toplevel
+[939] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\Admin\AppData\Local\Temp\biber_tmp_ArZV\a9e03cb3043b9e2c02591da84105bb68_16752.utf8, line 138, warning: 43 characters of junk seen at toplevel
+[939] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\Admin\AppData\Local\Temp\biber_tmp_ArZV\a9e03cb3043b9e2c02591da84105bb68_16752.utf8, line 146, warning: 21 characters of junk seen at toplevel
+[939] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\Admin\AppData\Local\Temp\biber_tmp_ArZV\a9e03cb3043b9e2c02591da84105bb68_16752.utf8, line 157, warning: 12 characters of junk seen at toplevel
+[939] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\Admin\AppData\Local\Temp\biber_tmp_ArZV\a9e03cb3043b9e2c02591da84105bb68_16752.utf8, line 165, warning: 40 characters of junk seen at toplevel
+[939] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\Admin\AppData\Local\Temp\biber_tmp_ArZV\a9e03cb3043b9e2c02591da84105bb68_16752.utf8, line 182, warning: 9 characters of junk seen at toplevel
+[939] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\Admin\AppData\Local\Temp\biber_tmp_ArZV\a9e03cb3043b9e2c02591da84105bb68_16752.utf8, line 190, warning: 5 characters of junk seen at toplevel
+[939] Biber.pm:134> INFO - WARNINGS: 19

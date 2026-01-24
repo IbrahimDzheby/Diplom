@@ -1,0 +1,754 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global/global}
+    \entry{Смирнов}{article}{useauthor=false}{}
+      \name{author}{4}{}{%
+        {{hash=0c3ba850ad582113efc80441bd4f6aa6}{%
+           family={Смирнов},
+           familyi={С\bibinitperiod},
+           given={С.\bibnamedelimi В.},
+           giveni={С\bibinitperiod\bibinitdelim В\bibinitperiod}}}%
+        {{hash=8a8ebfa8970439ca345b488ffde03fd2}{%
+           family={Макаров},
+           familyi={М\bibinitperiod},
+           given={А.\bibnamedelimi Р.},
+           giveni={А\bibinitperiod\bibinitdelim Р\bibinitperiod}}}%
+        {{hash=19fac7fca9219f4be36e02912bdeb09d}{%
+           family={Заев},
+           familyi={З\bibinitperiod},
+           given={И.\bibnamedelimi А.},
+           giveni={И\bibinitperiod\bibinitdelim А\bibinitperiod}}}%
+        {{hash=0e36dcc5ad58ffb0ccbac1a88d71bb28}{%
+           family={Худайбергенова},
+           familyi={Х\bibinitperiod},
+           given={Г.\bibnamedelimi Т.},
+           giveni={Г\bibinitperiod\bibinitdelim Т\bibinitperiod}}}%
+      }
+      \strng{authorbibnamehash}{7598dbf09a6cbdd6e8c634bde6e82cc8}
+      \strng{authornamehash}{7598dbf09a6cbdd6e8c634bde6e82cc8}
+      \strng{authorfullhash}{bf0dbd7aa5c020ec2c66a849318d78b3}
+      \strng{authorfullhashraw}{bf0dbd7aa5c020ec2c66a849318d78b3}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{internalsortvolume}{22}
+      \field{journaltitle}{Вестник РУДН. Серия: Инженерные исследования}
+      \field{title}{Исследование эффективности использования цикла Миллера в двигателях внутреннего сгорания}
+      \field{year}{2021}
+      \field{number}{2}
+      \range{number}{1}
+      \field{pages}{196\bibrangedash 204}
+      \range{pages}{9}
+      \field{volume}{22}
+      \range{volume}{1}
+      \verb{doi}
+      \verb 10.22363/2312-8143-2021-22-2-196-204
+      \endverb
+    \endentry
+    \entry{Amrinder}{article}{useauthor=false}{}
+      \name{author}{4}{}{%
+        {{hash=0e98ab2a86113f2d8cdbd017507eb2a8}{%
+           family={Amrinder},
+           familyi={A\bibinitperiod},
+           given={Singh},
+           giveni={S\bibinitperiod}}}%
+        {{hash=8d545ebecc818e98537426f69b835fea}{%
+           family={Lakshman},
+           familyi={L\bibinitperiod},
+           given={Singh},
+           giveni={S\bibinitperiod}}}%
+        {{hash=8254906cb038df886c3c97959e53f905}{%
+           family={Arun},
+           familyi={A\bibinitperiod},
+           given={Pundir},
+           giveni={P\bibinitperiod},
+           suffix={Kumar},
+           suffixi={K\bibinitperiod}}}%
+        {{hash=51453d278f2d23588a3d28eb52a3fa08}{%
+           family={Abhishek},
+           familyi={A\bibinitperiod},
+           given={Saini},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{authorbibnamehash}{e35ec3c79b99a27096e61362d146fa32}
+      \strng{authornamehash}{e35ec3c79b99a27096e61362d146fa32}
+      \strng{authorfullhash}{08b42ea83fdaf8808c1786830f4c6a2a}
+      \strng{authorfullhashraw}{08b42ea83fdaf8808c1786830f4c6a2a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{internalsortissue}{4}
+      \field{internalsortvolume}{8}
+      \field{issn}{2395-0056}
+      \field{journaltitle}{International Research Journal of Engineering and Technology}
+      \field{title}{Mild Hybrid Technology in Automotive: A Review}
+      \field{year}{2021}
+      \field{issue}{4}
+      \range{issue}{1}
+      \field{pages}{4405\bibrangedash 4410}
+      \range{pages}{6}
+      \field{volume}{8}
+      \range{volume}{1}
+    \endentry
+    \entry{petrov}{book}{}{}
+      \name{author}{1}{}{%
+        {{hash=1f31246ad16046efeae65415a3676d0c}{%
+           family={Петров},
+           familyi={П\bibinitperiod},
+           given={А.\bibnamedelimi П.},
+           giveni={А\bibinitperiod\bibinitdelim П\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Курган}%
+      }
+      \list{publisher}{1}{%
+        {Изд-во Курганского гос. ун-та}%
+      }
+      \strng{namehash}{1f31246ad16046efeae65415a3676d0c}
+      \strng{fullhash}{1f31246ad16046efeae65415a3676d0c}
+      \strng{fullhashraw}{1f31246ad16046efeae65415a3676d0c}
+      \strng{bibnamehash}{1f31246ad16046efeae65415a3676d0c}
+      \strng{authorbibnamehash}{1f31246ad16046efeae65415a3676d0c}
+      \strng{authornamehash}{1f31246ad16046efeae65415a3676d0c}
+      \strng{authorfullhash}{1f31246ad16046efeae65415a3676d0c}
+      \strng{authorfullhashraw}{1f31246ad16046efeae65415a3676d0c}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Конструкция и проектирование гибридных автомобилей}
+      \field{year}{2024}
+    \endentry
+    \entry{Alexander}{report}{}{}
+      \name{author}{2}{}{%
+        {{hash=bb6324f57c7c78f18d940231f3591f47}{%
+           family={Alexander},
+           familyi={A\bibinitperiod},
+           given={Y.\bibnamedelimi Lin},
+           giveni={Y\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+        {{hash=414cdeb01f6a9499972074f5121d696a}{%
+           family={Zhenhong},
+           familyi={Z\bibinitperiod},
+           given={Lin},
+           giveni={L\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {South China University of Technology}%
+      }
+      \strng{namehash}{283b4c6f4fd303bbb5fdbfefa42a55c7}
+      \strng{fullhash}{283b4c6f4fd303bbb5fdbfefa42a55c7}
+      \strng{fullhashraw}{283b4c6f4fd303bbb5fdbfefa42a55c7}
+      \strng{bibnamehash}{283b4c6f4fd303bbb5fdbfefa42a55c7}
+      \strng{authorbibnamehash}{283b4c6f4fd303bbb5fdbfefa42a55c7}
+      \strng{authornamehash}{283b4c6f4fd303bbb5fdbfefa42a55c7}
+      \strng{authorfullhash}{283b4c6f4fd303bbb5fdbfefa42a55c7}
+      \strng{authorfullhashraw}{283b4c6f4fd303bbb5fdbfefa42a55c7}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Optimizing PHEV Electric Range with Battery Degradation}
+      \field{type}{techreport}
+      \field{year}{2025}
+    \endentry
+    \entry{ICCT}{report}{useauthor=false}{}
+      \name{author}{8}{}{%
+        {{hash=c66471ae87dce91aa019e863412e8abd}{%
+           family={Plötz},
+           familyi={P\bibinitperiod},
+           given={P.},
+           giveni={P\bibinitperiod}}}%
+        {{hash=09c3426ea17a9a15ecc1105c05d8312e}{%
+           family={Link},
+           familyi={L\bibinitperiod},
+           given={S.},
+           giveni={S\bibinitperiod}}}%
+        {{hash=7da21d7d1dc1ca4749b6d242a4b63b74}{%
+           family={Ringelschwendner},
+           familyi={R\bibinitperiod},
+           given={H.},
+           giveni={H\bibinitperiod}}}%
+        {{hash=28e0b831ef63e9345e35ccf67a68f980}{%
+           family={Keller},
+           familyi={K\bibinitperiod},
+           given={M.},
+           giveni={M\bibinitperiod}}}%
+        {{hash=cecf6d4b472c7d64537f2690dbcb4f7f}{%
+           family={Moll},
+           familyi={M\bibinitperiod},
+           given={C.},
+           giveni={C\bibinitperiod}}}%
+        {{hash=e08df257dc044818527dcaf3ef1b72a0}{%
+           family={Bieker},
+           familyi={B\bibinitperiod},
+           given={G.},
+           giveni={G\bibinitperiod}}}%
+        {{hash=9148f83f1bc39d8a976e3a224389a714}{%
+           family={Dornoff},
+           familyi={D\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod}}}%
+        {{hash=5af412427f684423d77b747fb1f02b15}{%
+           family={&\bibnamedelima Mock},
+           familyi={&\bibinitperiod\bibinitdelim M\bibinitperiod},
+           given={P.},
+           giveni={P\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {ICCT}%
+      }
+      \strng{authorbibnamehash}{c8a29f3d72148ae0a4642d61f40dd04a}
+      \strng{authornamehash}{c8a29f3d72148ae0a4642d61f40dd04a}
+      \strng{authorfullhash}{3f055b4e7024b40f7d5423f201e82bfb}
+      \strng{authorfullhashraw}{3f055b4e7024b40f7d5423f201e82bfb}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labeltitlesource}{title}
+      \field{title}{Real-World usage of plug-in hybrid vehicles in Europe}
+      \field{type}{techreport}
+      \field{year}{2022}
+    \endentry
+    \entry{krishna}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=1fbe928e288c648fc872c9390da300fd}{%
+           family={Krishna},
+           familyi={K\bibinitperiod},
+           given={V.\bibnamedelimi S.},
+           giveni={V\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=a9daf958d0e3843d49637481dc27c4d8}{%
+           family={Hairy},
+           familyi={H\bibinitperiod},
+           given={O.\bibnamedelimi B.},
+           giveni={O\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+        {{hash=024484e48484b6b3bf9316122bc5e0f9}{%
+           family={Dheerendra},
+           familyi={D\bibinitperiod},
+           given={S.},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{51fd0abae6b08ba764198210c0057547}
+      \strng{fullhash}{51fd0abae6b08ba764198210c0057547}
+      \strng{fullhashraw}{51fd0abae6b08ba764198210c0057547}
+      \strng{bibnamehash}{51fd0abae6b08ba764198210c0057547}
+      \strng{authorbibnamehash}{51fd0abae6b08ba764198210c0057547}
+      \strng{authornamehash}{51fd0abae6b08ba764198210c0057547}
+      \strng{authorfullhash}{51fd0abae6b08ba764198210c0057547}
+      \strng{authorfullhashraw}{51fd0abae6b08ba764198210c0057547}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{internalsortvolume}{27}
+      \field{journaltitle}{Journal of Modern Transportation}
+      \field{title}{Acomprehensive review on hybrid electric vehicles: architectures and components.}
+      \field{year}{2019}
+      \field{pages}{77\bibrangedash 107}
+      \range{pages}{31}
+      \field{volume}{27}
+      \range{volume}{1}
+      \verb{doi}
+      \verb 10.1007/s40534-019-0184-3
+      \endverb
+    \endentry
+    \entry{Benchmarking}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=6339cebb2f0a76536cda4b0370c062f8}{%
+           family={Christian},
+           familyi={C\bibinitperiod},
+           given={Sieg},
+           giveni={S\bibinitperiod}}}%
+        {{hash=d2b3bf0e51bff288a4464fefbe451466}{%
+           family={Ferit},
+           familyi={F\bibinitperiod},
+           given={Küçükay},
+           giveni={K\bibinitperiod}}}%
+      }
+      \strng{namehash}{709a2b2988726c83d12c82c914322c86}
+      \strng{fullhash}{709a2b2988726c83d12c82c914322c86}
+      \strng{fullhashraw}{709a2b2988726c83d12c82c914322c86}
+      \strng{bibnamehash}{709a2b2988726c83d12c82c914322c86}
+      \strng{authorbibnamehash}{709a2b2988726c83d12c82c914322c86}
+      \strng{authornamehash}{709a2b2988726c83d12c82c914322c86}
+      \strng{authorfullhash}{709a2b2988726c83d12c82c914322c86}
+      \strng{authorfullhashraw}{709a2b2988726c83d12c82c914322c86}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{internalsortvolume}{2}
+      \field{journaltitle}{Vehicles}
+      \field{title}{Benchmarking of Dedicated Hybrid Transmissions}
+      \field{year}{2020}
+      \field{pages}{100\bibrangedash 125}
+      \range{pages}{26}
+      \field{volume}{2}
+      \range{volume}{1}
+      \verb{doi}
+      \verb 10.3390/vehicles2010006
+      \endverb
+    \endentry
+    \entry{PPschemes}{report}{useauthor=false}{}
+      \name{author}{5}{}{%
+        {{hash=decb74499caa9fc9d0e3811db550ba55}{%
+           family={Weichao},
+           familyi={W\bibinitperiod},
+           given={Zhuang},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=6bb0b134d24b2e3eff71e2aaa04f3aae}{%
+           family={Shengbo},
+           familyi={S\bibinitperiod},
+           given={Eben\bibnamedelima Li},
+           giveni={E\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+        {{hash=b6c6f9dc87cd6c1d0c2c22d91c13bf36}{%
+           family={Xiaowu},
+           familyi={X\bibinitperiod},
+           given={Zhang},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=49f93984b345c3e6982ffb8f2b9077a5}{%
+           family={Dongsulk},
+           familyi={D\bibinitperiod},
+           given={Kum},
+           giveni={K\bibinitperiod}}}%
+        {{hash=eee5d1cb4130ae51768408e22d332306}{%
+           family={Guodong},
+           familyi={G\bibinitperiod},
+           given={Yin},
+           giveni={Y\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {School of Mechanical Engineering, Southeast China University}%
+      }
+      \strng{authorbibnamehash}{2a16e5b0615184f135060dc21666fa82}
+      \strng{authornamehash}{2a16e5b0615184f135060dc21666fa82}
+      \strng{authorfullhash}{6a5c957bc1f81a5166d4d6cd53e49ce0}
+      \strng{authorfullhashraw}{6a5c957bc1f81a5166d4d6cd53e49ce0}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labeltitlesource}{title}
+      \field{title}{A Survey of Powertrain Architectural Studies on Hybrid Electric Vehicles}
+      \field{type}{techreport}
+      \field{year}{2020}
+    \endentry
+    \entry{hutchinson}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=3b821777a462adf3a707807bad3c0484}{%
+           family={Hutchinson},
+           familyi={H\bibinitperiod},
+           given={T.\bibnamedelimi V.},
+           giveni={T\bibinitperiod\bibinitdelim V\bibinitperiod}}}%
+        {{hash=0be15ac421a4d03acfd0c62d6a58df2a}{%
+           family={Burgess},
+           familyi={B\bibinitperiod},
+           given={S.\bibnamedelimi C.},
+           giveni={S\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+        {{hash=30828c349eb78b76a4087bd4c8eabeab}{%
+           family={Herrmann},
+           familyi={H\bibinitperiod},
+           given={G.},
+           giveni={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{758ea912522da3b4e75428053c655a06}
+      \strng{fullhash}{758ea912522da3b4e75428053c655a06}
+      \strng{fullhashraw}{758ea912522da3b4e75428053c655a06}
+      \strng{bibnamehash}{758ea912522da3b4e75428053c655a06}
+      \strng{authorbibnamehash}{758ea912522da3b4e75428053c655a06}
+      \strng{authornamehash}{758ea912522da3b4e75428053c655a06}
+      \strng{authorfullhash}{758ea912522da3b4e75428053c655a06}
+      \strng{authorfullhashraw}{758ea912522da3b4e75428053c655a06}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{internalsortvolume}{119}
+      \field{journaltitle}{Applied Energy}
+      \field{title}{Current hybrid-electric powertrain architectures: Applying empirical design data to life cycle assessment and whole-life cost analysis.}
+      \field{year}{2014}
+      \field{pages}{314\bibrangedash 329}
+      \range{pages}{16}
+      \field{volume}{119}
+      \range{volume}{1}
+      \verb{doi}
+      \verb 10.1016/j.apenergy.2014.01.009
+      \endverb
+    \endentry
+    \entry{VWeTSI}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=3d53418c9a5b72e242a8c88c34faf0f4}{%
+           family={VolksWagen},
+           familyi={V\bibinitperiod}}}%
+      }
+      \strng{namehash}{3d53418c9a5b72e242a8c88c34faf0f4}
+      \strng{fullhash}{3d53418c9a5b72e242a8c88c34faf0f4}
+      \strng{fullhashraw}{3d53418c9a5b72e242a8c88c34faf0f4}
+      \strng{bibnamehash}{3d53418c9a5b72e242a8c88c34faf0f4}
+      \strng{authorbibnamehash}{3d53418c9a5b72e242a8c88c34faf0f4}
+      \strng{authornamehash}{3d53418c9a5b72e242a8c88c34faf0f4}
+      \strng{authorfullhash}{3d53418c9a5b72e242a8c88c34faf0f4}
+      \strng{authorfullhashraw}{3d53418c9a5b72e242a8c88c34faf0f4}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://www.volkswagen-newsroom.com/}}
+      \field{title}{The technical data of the new Golf hybrid models}
+      \field{year}{2020}
+    \endentry
+    \entry{Insight2}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=2e24c9e50345c8215ef750be33c639d7}{%
+           family={Toshikoto},
+           familyi={T\bibinitperiod},
+           given={Fukuda},
+           giveni={F\bibinitperiod}}}%
+        {{hash=448987146fc87aa29a3b8eb693937d6a}{%
+           family={Takahiro},
+           familyi={T\bibinitperiod},
+           given={Eguchi},
+           giveni={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{97481a5d9e034cad330fef9d3405518c}
+      \strng{fullhash}{97481a5d9e034cad330fef9d3405518c}
+      \strng{fullhashraw}{97481a5d9e034cad330fef9d3405518c}
+      \strng{bibnamehash}{97481a5d9e034cad330fef9d3405518c}
+      \strng{authorbibnamehash}{97481a5d9e034cad330fef9d3405518c}
+      \strng{authornamehash}{97481a5d9e034cad330fef9d3405518c}
+      \strng{authorfullhash}{97481a5d9e034cad330fef9d3405518c}
+      \strng{authorfullhashraw}{97481a5d9e034cad330fef9d3405518c}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{internalsortvolume}{21}
+      \field{journaltitle}{Honda R\&D Technical Review}
+      \field{title}{Technology for increased fuel efficiency in new Insight}
+      \field{year}{2009}
+      \field{number}{1}
+      \range{number}{1}
+      \field{pages}{88\bibrangedash 94}
+      \range{pages}{7}
+      \field{volume}{21}
+      \range{volume}{1}
+    \endentry
+    \entry{Yiqun}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=7a34f9e5365ecb63c3ce0c5eceabdf4c}{%
+           family={Yiqun},
+           familyi={Y\bibinitperiod},
+           given={Liu},
+           giveni={L\bibinitperiod}}}%
+        {{hash=f898702cb08e38b67468e91ad51bf045}{%
+           family={Y},
+           familyi={Y\bibinitperiod},
+           given={Liao},
+           giveni={L\bibinitperiod},
+           suffix={Gene},
+           suffixi={G\bibinitperiod}}}%
+        {{hash=9178489e6d6710e8525821d1ea2fb449}{%
+           family={Ming-Chia},
+           familyi={M\bibinithyphendelim C\bibinitperiod},
+           given={Lai},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{ab88a6b4439a945501c21f5ba4887138}
+      \strng{fullhash}{ab88a6b4439a945501c21f5ba4887138}
+      \strng{fullhashraw}{ab88a6b4439a945501c21f5ba4887138}
+      \strng{bibnamehash}{ab88a6b4439a945501c21f5ba4887138}
+      \strng{authorbibnamehash}{ab88a6b4439a945501c21f5ba4887138}
+      \strng{authornamehash}{ab88a6b4439a945501c21f5ba4887138}
+      \strng{authorfullhash}{ab88a6b4439a945501c21f5ba4887138}
+      \strng{authorfullhashraw}{ab88a6b4439a945501c21f5ba4887138}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{internalsortvolume}{13}
+      \field{journaltitle}{Advances in Mechanical Engineering}
+      \field{title}{Fuel economy improvement and emission reduction of 48V mild hybrid electric vehicles with P0, P1, and P2 architectures with lithium battery cell experimental data.}
+      \field{year}{2021}
+      \field{number}{10}
+      \range{number}{1}
+      \field{pages}{1\bibrangedash 10}
+      \range{pages}{10}
+      \field{volume}{13}
+      \range{volume}{1}
+      \verb{doi}
+      \verb 10.1177/16878140211036022
+      \endverb
+    \endentry
+    \entry{BMWah5}{article}{useauthor=false}{}
+      \name{author}{6}{}{%
+        {{hash=f1f84ee3cd7c719e7a2118249ceca2b1}{%
+           family={Claus-Otto},
+           familyi={C\bibinithyphendelim O\bibinitperiod},
+           given={Griebel},
+           giveni={G\bibinitperiod}}}%
+        {{hash=a4b3d475ef600ecc57b4e171e404c61c}{%
+           family={Friedrich},
+           familyi={F\bibinitperiod},
+           given={Rabenstein},
+           giveni={R\bibinitperiod}}}%
+        {{hash=ffa081c37bb78a92b2c9fba4a5d1279c}{%
+           family={Manfred},
+           familyi={M\bibinitperiod},
+           given={Klüting},
+           giveni={K\bibinitperiod}}}%
+        {{hash=cd33f9ba0f7f563f0af5eb7543514de6}{%
+           family={Frank},
+           familyi={F\bibinitperiod},
+           given={Kessler},
+           giveni={K\bibinitperiod}}}%
+        {{hash=8b855219f30e826447b07eb8068c9bb2}{%
+           family={Jan},
+           familyi={J\bibinitperiod},
+           given={Kretschmer},
+           giveni={K\bibinitperiod}}}%
+        {{hash=6fcaa18d83858b5105fb971aa478a992}{%
+           family={Elmar},
+           familyi={E\bibinitperiod},
+           given={Hockgeiger},
+           giveni={H\bibinitperiod}}}%
+      }
+      \strng{authorbibnamehash}{9cd7065ba60e831f4fa8ba4ad677d80e}
+      \strng{authornamehash}{9cd7065ba60e831f4fa8ba4ad677d80e}
+      \strng{authorfullhash}{d5e4ad3990d087027de66ae3e360db69}
+      \strng{authorfullhashraw}{d5e4ad3990d087027de66ae3e360db69}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{internalsortvolume}{20}
+      \field{journaltitle}{Aachen Colloquium Automobile and Engine Technology}
+      \field{title}{The Full-Hybrid Powertrain of the new BMW ActiveHybrid 5}
+      \field{year}{2011}
+      \field{pages}{1\bibrangedash 17}
+      \range{pages}{17}
+      \field{volume}{20}
+      \range{volume}{1}
+    \endentry
+    \entry{Sonata}{report}{useauthor=false}{}
+      \name{author}{6}{}{%
+        {{hash=685b9d393dfa24b569c8b63ca4dbe243}{%
+           family={Stutenberg},
+           familyi={S\bibinitperiod},
+           given={K.},
+           giveni={K\bibinitperiod}}}%
+        {{hash=b011687617db413fe446db61299655dd}{%
+           family={Kim},
+           familyi={K\bibinitperiod},
+           given={N.},
+           giveni={N\bibinitperiod}}}%
+        {{hash=4e765f218d6e93de4c6cf856f7a56078}{%
+           family={Cho},
+           familyi={C\bibinitperiod},
+           given={J.\bibnamedelimi E.},
+           giveni={J\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+        {{hash=161615d37fdd6aa9ab245fa1c78de580}{%
+           family={Hughley},
+           familyi={H\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod}}}%
+        {{hash=9d259f6e04b467170e52dbc41eb91959}{%
+           family={Iliev},
+           familyi={I\bibinitperiod},
+           given={S.},
+           giveni={S\bibinitperiod}}}%
+        {{hash=88df807a43388fa7d1f515970b69dcb6}{%
+           family={Vijayagopal},
+           familyi={V\bibinitperiod},
+           given={R.},
+           giveni={R\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {U.S. National Highway Traffic Safety Administration}%
+      }
+      \strng{authorbibnamehash}{ece7be8bf21ce0f042179f3c3045400f}
+      \strng{authornamehash}{ece7be8bf21ce0f042179f3c3045400f}
+      \strng{authorfullhash}{58f30f9dea2511b01c65e47fd5d25cd8}
+      \strng{authorfullhashraw}{58f30f9dea2511b01c65e47fd5d25cd8}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{title}{Vehicle technology assessment, model development, and validation of a 2021 Hyundai Sonata Hybrid}
+      \field{type}{techreport}
+      \field{year}{2023}
+    \endentry
+    \entry{THS}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=e55b5d6b37335d339203cd41f5af048b}{%
+           family={Guang},
+           familyi={G\bibinitperiod},
+           given={Wu},
+           giveni={W\bibinitperiod}}}%
+        {{hash=548678e5ca547b4f031602b5c742b211}{%
+           family={Xing},
+           familyi={X\bibinitperiod},
+           given={Zhang},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=c42868911560b9cd856fd4b344e6a0a4}{%
+           family={Zuomin},
+           familyi={Z\bibinitperiod},
+           given={Dong},
+           giveni={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{70c3d0b0663a56da9b134917c91d4781}
+      \strng{fullhash}{70c3d0b0663a56da9b134917c91d4781}
+      \strng{fullhashraw}{70c3d0b0663a56da9b134917c91d4781}
+      \strng{bibnamehash}{70c3d0b0663a56da9b134917c91d4781}
+      \strng{authorbibnamehash}{70c3d0b0663a56da9b134917c91d4781}
+      \strng{authornamehash}{70c3d0b0663a56da9b134917c91d4781}
+      \strng{authorfullhash}{70c3d0b0663a56da9b134917c91d4781}
+      \strng{authorfullhashraw}{70c3d0b0663a56da9b134917c91d4781}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{internalsortvolume}{352}
+      \field{journaltitle}{Journal of the Franklin Institute}
+      \field{title}{Powertrain architectures of electrified vehicles Review, classification and comparison}
+      \field{year}{2015}
+      \field{pages}{425\bibrangedash 448}
+      \range{pages}{24}
+      \field{volume}{352}
+      \range{volume}{1}
+    \endentry
+    \entry{FordFusion}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=01083da2df15d6ebfe62186418a76863}{%
+           family={Ford},
+           familyi={F\bibinitperiod}}}%
+      }
+      \strng{namehash}{01083da2df15d6ebfe62186418a76863}
+      \strng{fullhash}{01083da2df15d6ebfe62186418a76863}
+      \strng{fullhashraw}{01083da2df15d6ebfe62186418a76863}
+      \strng{bibnamehash}{01083da2df15d6ebfe62186418a76863}
+      \strng{authorbibnamehash}{01083da2df15d6ebfe62186418a76863}
+      \strng{authornamehash}{01083da2df15d6ebfe62186418a76863}
+      \strng{authorfullhash}{01083da2df15d6ebfe62186418a76863}
+      \strng{authorfullhashraw}{01083da2df15d6ebfe62186418a76863}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://www.fordservicecontent.com/}}
+      \field{title}{MY OBD System Operation Summary for Plug In and Hybrid Electric Vehicles}
+      \field{year}{2019}
+    \endentry
+    \entry{iMMD}{article}{useauthor=false}{}
+      \name{author}{5}{}{%
+        {{hash=7430d971e06c5977b986190d14960d4f}{%
+           family={Jiaen},
+           familyi={J\bibinitperiod},
+           given={Du},
+           giveni={D\bibinitperiod}}}%
+        {{hash=b9499645827dabcad608d1884c501619}{%
+           family={Fuyuan},
+           familyi={F\bibinitperiod},
+           given={Yang},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=0d2edb7e63615321d75403f62b5c1c27}{%
+           family={Yuanchun},
+           familyi={Y\bibinitperiod},
+           given={Cai},
+           giveni={C\bibinitperiod}}}%
+        {{hash=4f2b6cc7f5a558d8b8bd6f7437d92a90}{%
+           family={Lei},
+           familyi={L\bibinitperiod},
+           given={Du},
+           giveni={D\bibinitperiod}}}%
+        {{hash=23dd2be54498fdb9772bbea10ade7109}{%
+           family={Minggao},
+           familyi={M\bibinitperiod},
+           given={Ouyang},
+           giveni={O\bibinitperiod}}}%
+      }
+      \strng{authorbibnamehash}{c0d656c500a8b68a5d9c00989a21439e}
+      \strng{authornamehash}{c0d656c500a8b68a5d9c00989a21439e}
+      \strng{authorfullhash}{edde7b35703cf7496b00167f1a5392a8}
+      \strng{authorfullhashraw}{edde7b35703cf7496b00167f1a5392a8}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{internalsortvolume}{49}
+      \field{journaltitle}{IFAC-PapersOnLine}
+      \field{title}{Testing and Analysis of the Control Strategy of Honda Accord Plug-in HEV}
+      \field{year}{2016}
+      \field{number}{11}
+      \range{number}{1}
+      \field{pages}{153\bibrangedash 159}
+      \range{pages}{7}
+      \field{volume}{49}
+      \range{volume}{1}
+    \endentry
+    \entry{PHEVreport}{misc}{}{}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{отчет}
+      \field{title}{Global and China Range Extended Electric Vehicle (REEV) and Plug-in Hybrid Electric Vehicle (PHEV) Research Report, 2024–2025}
+      \field{year}{2025}
+    \endentry
+    \entry{Lixiang}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=c8528459bf05acd4853bf8d65e29ab7e}{%
+           family={Lixiang},
+           familyi={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{c8528459bf05acd4853bf8d65e29ab7e}
+      \strng{fullhash}{c8528459bf05acd4853bf8d65e29ab7e}
+      \strng{fullhashraw}{c8528459bf05acd4853bf8d65e29ab7e}
+      \strng{bibnamehash}{c8528459bf05acd4853bf8d65e29ab7e}
+      \strng{authorbibnamehash}{c8528459bf05acd4853bf8d65e29ab7e}
+      \strng{authornamehash}{c8528459bf05acd4853bf8d65e29ab7e}
+      \strng{authorfullhash}{c8528459bf05acd4853bf8d65e29ab7e}
+      \strng{authorfullhashraw}{c8528459bf05acd4853bf8d65e29ab7e}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://liautoofficial.ru/}}
+      \field{title}{REEV-плтаформа. Li-7 и Li-7 Pro}
+      \field{year}{2025}
+    \endentry
+    \entry{BMWi3}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=bcb48dddff8c14b5f452ee573b4db770}{%
+           family={BMW},
+           familyi={B\bibinitperiod}}}%
+      }
+      \strng{namehash}{bcb48dddff8c14b5f452ee573b4db770}
+      \strng{fullhash}{bcb48dddff8c14b5f452ee573b4db770}
+      \strng{fullhashraw}{bcb48dddff8c14b5f452ee573b4db770}
+      \strng{bibnamehash}{bcb48dddff8c14b5f452ee573b4db770}
+      \strng{authorbibnamehash}{bcb48dddff8c14b5f452ee573b4db770}
+      \strng{authornamehash}{bcb48dddff8c14b5f452ee573b4db770}
+      \strng{authorfullhash}{bcb48dddff8c14b5f452ee573b4db770}
+      \strng{authorfullhashraw}{bcb48dddff8c14b5f452ee573b4db770}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://www.bmwmediainf.com/}}
+      \field{title}{Technical specifications. BMW i3 (120 Ah)}
+      \field{year}{2018}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

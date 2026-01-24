@@ -1,0 +1,34 @@
+\documentclass{bmstu}
+\microtypesetup{expansion=false}
+\usepackage{threeparttable}
+\usepackage{subcaption}
+\renewcommand\thesubfigure{\asbuk{subfigure}}
+\bibliography{biblio}
+
+\begin{document}
+
+\makeresearchtitle
+    {Специальное машиностроение} % Название факультета
+    {Колёсные машины} % Название кафедры
+    {Обзор и анализ схем гибридного привода легковых автомобилей} % Тема работы
+    {Джабаев~И.~Ю./СМ10-71Б} % Номер группы/ФИО студента (если авторов несколько, их необходимо разделить запятой)
+    {Шаболин~М.~Л.} % ФИО научного руководителя
+    {} % ФИО консультанта (необязательный аргумент; если консультантов несколько, их необходимо разделить запятой)
+
+\include{00-essay}
+
+\maketableofcontents
+
+%\include{01-definitions}
+\include{02-abbreviations}
+
+\include{03-introduction}
+\include{04-classification}
+\include{05-analysis}
+\include{06-conclusion}
+
+\makebibliography
+
+\include{07-appendix}
+
+\end{document}
