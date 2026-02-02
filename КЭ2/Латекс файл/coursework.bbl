@@ -1,0 +1,73 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global/global}
+    \entry{CVTBeltMarketLib}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=0e03e108bde8f96f75936af228a5c62e}{%
+           family={Statistics},
+           familyi={S\bibinitperiod},
+           given={Global\bibnamedelima Market},
+           giveni={G\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \strng{namehash}{0e03e108bde8f96f75936af228a5c62e}
+      \strng{fullhash}{0e03e108bde8f96f75936af228a5c62e}
+      \strng{fullhashraw}{0e03e108bde8f96f75936af228a5c62e}
+      \strng{bibnamehash}{0e03e108bde8f96f75936af228a5c62e}
+      \strng{authorbibnamehash}{0e03e108bde8f96f75936af228a5c62e}
+      \strng{authornamehash}{0e03e108bde8f96f75936af228a5c62e}
+      \strng{authorfullhash}{0e03e108bde8f96f75936af228a5c62e}
+      \strng{authorfullhashraw}{0e03e108bde8f96f75936af228a5c62e}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Электронный ресурс}
+      \field{title}{Continuously Variable Transmission market size and share forecast outlook 2025 to 2035}
+      \field{year}{27.10.2025}
+    \endentry
+    \entry{CVTMarketLib}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=0fb3ff218e7d9ff6570d9fc60e3a397c}{%
+           family={Future\bibnamedelimb Market\bibnamedelima Insights},
+           familyi={F\bibinitperiod\bibinitdelim M\bibinitperiod\bibinitdelim I\bibinitperiod},
+           given={Inc.},
+           giveni={I\bibinitperiod}}}%
+      }
+      \strng{namehash}{0fb3ff218e7d9ff6570d9fc60e3a397c}
+      \strng{fullhash}{0fb3ff218e7d9ff6570d9fc60e3a397c}
+      \strng{fullhashraw}{0fb3ff218e7d9ff6570d9fc60e3a397c}
+      \strng{bibnamehash}{0fb3ff218e7d9ff6570d9fc60e3a397c}
+      \strng{authorbibnamehash}{0fb3ff218e7d9ff6570d9fc60e3a397c}
+      \strng{authornamehash}{0fb3ff218e7d9ff6570d9fc60e3a397c}
+      \strng{authorfullhash}{0fb3ff218e7d9ff6570d9fc60e3a397c}
+      \strng{authorfullhashraw}{0fb3ff218e7d9ff6570d9fc60e3a397c}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Электронный ресурс}
+      \field{title}{Continuously Variable Transmissions CVT Market Size, Share, Growth, and Industry Analysis, By Type, By Application and Regional Forecast to 2033}
+      \field{year}{27.10.2025}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
