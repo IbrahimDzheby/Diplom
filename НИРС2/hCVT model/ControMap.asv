@@ -1,0 +1,128 @@
+% Очистка рабочего пространства
+clear; clc; close all;
+
+% Определение диапазонов
+n_min = 0;
+n_max = 5500;
+T_min = 0;
+T_max = 150;
+
+% Создание сетки точек
+[n, T] = meshgrid(linspace(n_min, n_max, 200), ...
+                  linspace(T_min, T_max, 200));
+
+% Уравнение поверхности BSFC (эллиптический параболоид)
+BSFC(n,T)=2.0687⋅10−6n2+0.06338T2−1.2335⋅10−4nT+1.2329*10^(−3)*n − 11.6253*T + 733.8128;
+BSFC = 215 + 1.2e-6*(n - 1520).^2 + 0.042*(T - 100).^2 - 2.5e-4*(n - 1520).*(T - 100);
+
+% Ограничение значений
+BSFC = max(BSFC, 215);
+BSFC = min(BSFC, 700);
+
+%% СОЗДАНИЕ ФИГУРЫ С ДВУМЯ ГРАФИКАМИ
+figure('Position', [100, 100, 1600, 700]);
+
+% ========== 1. ТРЕХМЕРНЫЙ ГРАФИК ==========
+subplot(1, 2, 1);
+
+% Красивая поверхность с освещением
+s = surf(n, T, BSFC, 'EdgeColor', 'none', 'FaceAlpha', 0.85);
+hold on;
+
+% Добавление контурных линий НА поверхность (черные)
+contour3(n, T, BSFC, [220, 230, 250, 275, 300, 350, 400, 500, 600, 700], ...
+    'k-', 'LineWidth', 1.2);
+
+% Настройка внешнего вида
+xlabel('Частота вращения n (об/мин)', 'FontSize', 12, 'FontWeight', 'bold');
+ylabel('Крутящий момент T (Н·м)', 'FontSize', 12, 'FontWeight', 'bold');
+zlabel('BSFC (г/кВт·ч)', 'FontSize', 12, 'FontWeight', 'bold');
+title('3D поверхность BSFC с контурными линиями', 'FontSize', 14, 'FontWeight', 'bold');
+
+% Цветовая схема
+colormap(gca, 'jet');
+c = colorbar;
+c.Label.String = 'BSFC (г/кВт·ч)';
+c.Label.FontSize = 11;
+c.Label.FontWeight = 'bold';
+
+% Освещение для объема
+lighting gouraud;
+light('Position', [1 1 1], 'Style', 'infinite');
+light('Position', [-1 -1 1], 'Style', 'infinite');
+
+% Настройка осей
+grid on;
+grid minor;
+ax = gca;
+ax.GridAlpha = 0.3;
+ax.FontSize = 10;
+view(45, 30);  % Хороший угол обзора
+axis([0 5500 0 150 200 700]);
+
+% ========== 2. ДВУМЕРНЫЙ КОНТУРНЫЙ ГРАФИК ==========
+subplot(1, 2, 2);
+
+% Контурный график с заливкой
+contourf(n, T, BSFC, [215, 220, 225, 230, 235, 240, 245, 250, 275, 300, 350, 400, 450, 500, 550, 600, 650, 700], ...
+    'LineColor', 'none');
+hold on;
+
+% Добавление ЧЕРНЫХ контурных линий поверх заливки
+[C, h] = contour(n, T, BSFC, [220, 230, 250, 275, 300, 350, 400, 500, 600, 700], ...
+    'k-', 'LineWidth', 1.5, 'ShowText', 'on', 'LabelSpacing', 300);
+clabel(C, h, 'FontSize', 9, 'Color', 'k', 'BackgroundColor', 'w', 'EdgeColor', 'none');
+
+% Настройка внешнего вида
+xlabel('Частота вращения n (об/мин)', 'FontSize', 12, 'FontWeight', 'bold');
+ylabel('Крутящий момент T (Н·m)', 'FontSize', 12, 'FontWeight', 'bold');
+title('Карта BSFC (контурные линии расхода)', 'FontSize', 14, 'FontWeight', 'bold');
+
+% Цветовая схема
+colormap(gca, 'jet');
+c2 = colorbar;
+c2.Label.String = 'BSFC (г/кВт·ч)';
+c2.Label.FontSize = 11;
+c2.Label.FontWeight = 'bold';
+
+% Настройка осей
+grid on;
+grid minor;
+ax2 = gca;
+ax2.GridAlpha = 0.3;
+ax2.FontSize = 10;
+axis([0 5500 0 150]);
+ax2.XTick = 0:500:5500;
+ax2.YTick = 0:20:150;
+
+% Добавление метки центра (минимума)
+plot(1520, 100, 'w.', 'MarkerSize', 20);
+text(1520, 100, '  минимум 215', 'Color', 'w', 'FontWeight', 'bold', ...
+    'BackgroundColor', 'k', 'EdgeColor', 'w', 'HorizontalAlignment', 'left');
+
+% Добавление аннотации с уравнением под графиками
+annotation('textbox', [0.35, 0.02, 0.3, 0.04], ...
+    'String', 'BSFC(n,T) = 215 + 2.8e-5·(n-1520)² + 0.018·(T-100)² - 8.5e-4·(n-1520)·(T-100)', ...
+    'FontSize', 10, 'HorizontalAlignment', 'center', ...
+    'EdgeColor', 'black', 'BackgroundColor', [0.95 0.95 0.95], ...
+    'FontWeight', 'bold');
+
+% Сохранение
+saveas(gcf, 'BSFC_two_plots.png');
+saveas(gcf, 'BSFC_two_plots.fig');
+
+% Вывод статистики
+fprintf('=== СТАТИСТИКА ПОВЕРХНОСТИ BSFC ===\n');
+fprintf('Минимальное значение: %.2f г/кВт·ч\n', min(BSFC(:)));
+fprintf('Максимальное значение: %.2f г/кВт·ч\n', max(BSFC(:)));
+fprintf('Среднее значение: %.2f г/кВт·ч\n', mean(BSFC(:)));
+
+% Поиск оптимальной точки
+[min_BSFC, idx] = min(BSFC(:));
+[row, col] = ind2sub(size(BSFC), idx);
+opt_n = n(row, col);
+opt_T = T(row, col);
+fprintf('\n=== ОПТИМАЛЬНАЯ ТОЧКА (МИНИМУМ РАСХОДА) ===\n');
+fprintf('n = %.0f об/мин\n', opt_n);
+fprintf('T = %.1f Н·м\n', opt_T);
+fprintf('BSFC = %.2f г/кВт·ч\n', min_BSFC);
