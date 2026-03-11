@@ -2,41 +2,90 @@ clear
 clc
 close all
 
-%% загрузка Excel
+%% Загрузка данных
 M = readmatrix('BSFC.xlsx');
-
 rpm    = M(:,1);
 torque = M(:,2);
 bsfc   = M(:,3);
 
-%% создаём сетку
-[n,T] = meshgrid(linspace(0,5500,200), ...
-                 linspace(0,150,200));
+%% Сортировка точек по углу на каждой линии уровня
+uniqueLevels = unique(bsfc);
+rpm_sorted = [];
+torque_sorted = [];
+bsfc_sorted = [];
 
-%% АППРОКСИМАЦИЯ ПОВЕРХНОСТИ (вместо scatteredInterpolant)
+for i = 1:length(uniqueLevels)
+    level = uniqueLevels(i);
+    idx = bsfc == level;
+    x = rpm(idx);
+    y = torque(idx);
+    
+    % центр линии
+    xc = mean(x); yc = mean(y);
+    angles = atan2(y - yc, x - xc);
+    
+    [~, order] = sort(angles);
+    
+    rpm_sorted    = [rpm_sorted; x(order)];
+    torque_sorted = [torque_sorted; y(order)];
+    bsfc_sorted   = [bsfc_sorted; repmat(level, length(order), 1)];
+end
 
-f = fit([rpm, torque], bsfc, 'poly35');
-BSFC = f(n,T);
-BSFC = max(BSFC,215);
+%% Сетка для интерполяции
+[n, T] = meshgrid(linspace(0,5500,200), linspace(0,150,200));
+
+%% Интерполяция с griddata
+BSFC = griddata(rpm_sorted, torque_sorted, bsfc_sorted, n, T, 'linear'); % 'linear' или 'natural'
 
 %% 3D поверхность
 figure
-surf(n,T,BSFC,'EdgeColor','none')
+surf(n, T, BSFC, 'EdgeColor','none')
 xlabel('n (rpm)')
 ylabel('T (Nm)')
 zlabel('BSFC')
-title('BSFC surface')
+title('BSFC surface via griddata')
 colorbar
 view(45,30)
 shading interp
+hold on
 
-%% контурная карта
+%% Красные линии исходных контуров
+for i = 1:length(uniqueLevels)
+    level = uniqueLevels(i);
+    idx = bsfc == level;
+    x = rpm(idx);
+    y = torque(idx);
+    
+    % сортировка по углу
+    xc = mean(x); yc = mean(y);
+    angles = atan2(y - yc, x - xc);
+    [~, order] = sort(angles);
+    
+    plot3(x(order), y(order), repmat(level, size(x)), 'r-', 'LineWidth', 1)
+end
 
-levels = [150:5:250 275 300:100:800];
-
+%% Контурная карта
 figure
-contourf(n,T,BSFC,levels)
+contourf(n, T, BSFC, 30, 'LineColor', 'none')
+hold on
+contour(n, T, BSFC, 30, 'k', 'LineWidth', 0.8)
+
+for i = 1:length(uniqueLevels)
+    level = uniqueLevels(i);
+    idx = bsfc == level;
+    x = rpm(idx);
+    y = torque(idx);
+    
+    % сортировка по углу
+    xc = mean(x); yc = mean(y);
+    angles = atan2(y - yc, x - xc);
+    [~, order] = sort(angles);
+    
+    plot(x(order), y(order), 'r-', 'LineWidth', 1)
+end
+
 xlabel('n (rpm)')
 ylabel('T (Nm)')
-title('BSFC map')
+title('BSFC map via griddata with original contours')
 colorbar
+grid on
