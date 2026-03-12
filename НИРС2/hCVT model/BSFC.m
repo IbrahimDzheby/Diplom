@@ -1,6 +1,3 @@
-%% Построение поверхности по линиям уровня
-clear; clc; close all;
-
 %% 1. Загрузка данных из Excel
 fprintf('Загрузка данных из BSFC.xlsx...\n');
 data = readtable('BSFC.xlsx');
@@ -108,22 +105,22 @@ for level_idx = 1:n_levels-1
     end
 end
 
-%% 5. Визуализация
-figure('Position', [100, 100, 1400, 600]);
-
-if ~isempty(all_triangles)
-    trisurf(all_triangles, all_vertices(:,1), all_vertices(:,2), all_vertices(:,3), ...
-        'FaceColor', [0.3 0.7 0.3], ...
-        'EdgeColor', 'k', ...
-        'LineWidth', 0.5, ...
-        'FaceAlpha', 0.9);
-    
-    xlabel('X'); ylabel('Y'); zlabel('Z');
-    title('3D поверхность');
-    axis tight;
-    grid on;
-    view(3);
-end
+% %% 5. Визуализация
+% figure('Position', [100, 100, 1400, 600]);
+% 
+% if ~isempty(all_triangles)
+%     trisurf(all_triangles, all_vertices(:,1), all_vertices(:,2), all_vertices(:,3), ...
+%         'FaceColor', [0.3 0.7 0.3], ...
+%         'EdgeColor', 'k', ...
+%         'LineWidth', 0.5, ...
+%         'FaceAlpha', 0.9);
+% 
+%     xlabel('X'); ylabel('Y'); zlabel('Z');
+%     title('3D поверхность');
+%     axis tight;
+%     grid on;
+%     view(3);
+% end
 
 % Сохраняем триангуляцию
 save('BSFC_surface.mat', 'all_vertices', 'all_triangles');
