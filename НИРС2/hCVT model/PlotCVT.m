@@ -3,7 +3,7 @@ clear;
 close all;
 
 % загрузка таблицы из Excel
-data = readmatrix('mapCVT.xlsx');
+data = readmatrix('CVT.xlsx');
 
 % столбцы
 ratio  = data(:,1);   % передаточное отношение
