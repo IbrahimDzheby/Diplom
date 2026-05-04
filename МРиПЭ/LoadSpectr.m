@@ -8,7 +8,7 @@ dV = 1;
 V = 0:dV:V_max;
 
 V_mean = 47.6;
-sigma = 20;
+sigma = 16;
 
 R_wheel = 0.285;
 
