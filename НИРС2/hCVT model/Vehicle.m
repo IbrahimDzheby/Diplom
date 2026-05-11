@@ -13,3 +13,4 @@ GP_ratio = 5.4;
 GP_efficiency = 0.995;
 GP_inertia = 0.01;
 GP_loss_coef = 0.01;
+
