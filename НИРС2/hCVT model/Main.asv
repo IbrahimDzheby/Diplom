@@ -144,7 +144,7 @@ for k = 2:N
             % Механическая мощность МГ
             P_mg_mech = T_mg_req * w_eng / 1000;   % кВт (отриц.)
             % Электрическая мощность на клеммах (зарядка)
-            eta_mg = MG_efficiency(w_eng, T_mg_req, 'gen');
+            eta_mg = MG_efficiency(w_eng, T_mg_req, 1);
             P_batt = P_mg_mech * eta_mg * eta_inv;   % отриц.
             J_brake = s_current * P_batt;    % отрицательное (выгодно)
             
@@ -216,12 +216,10 @@ for k = 2:N
             P_mg_mech = T_mg * w_eng / 1000;   % кВт
             if T_mg >= 0
                 % Моторный режим (помощь)
-                eta_mg = MG_efficiency(w_eng, T_mg, 'motor');
-                P_batt = P_mg_mech / (eta_mg * eta_inv);
+                P_batt = P_mg_mech / (elec.eta.motor * elec.eta.inv);
             else
                 % Генераторный режим (заряд)
-                eta_mg = MG_efficiency(w_eng, T_mg, 'gen');
-                P_batt = P_mg_mech * eta_mg * eta_inv;
+                P_batt = P_mg_mech * elec.eta.gen * elec.eta.inv;
             end
             
             % Обобщённый расход
