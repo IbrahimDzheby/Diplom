@@ -22,7 +22,7 @@ vehicle.J_e = 0.2;
 engine = struct();
 engine.rpm_min = 600;
 engine.rpm_max = 5400;
-engine.rpm_tmax_curve = [600, 941.88, 1488.89, 1926.50, 2350.43, 3006.84, 3252.99, 3663.25, 4100.85, 4497.44, 4839.32, 5167.52, 5400.00];
+engine.rpm_tmax_curve = [800, 1113.39, 1614.81, 2015.95, 2404.56, 3006.27, 3231.91, 3607.98, 4009.12, 4372.65, 4686.04, 5986.89, 5200];
 engine.torque_tmax_curve = [101.10, 106.59, 116.48, 123.08, 131.32, 136.81, 138.46, 141.76, 142.86, 140.11, 137.91, 136.26, 134.07];
 engine.Tmax = @(rpm) interp1(engine.rpm_tmax_curve, engine.torque_tmax_curve, rpm, 'linear', 'extrap');
 engine.T_ice_min = 10;               % минимальный момент ДВС при подаче топлива (Н·м) – исключает EV
@@ -41,11 +41,13 @@ cvt.ratio_min = 0.427;
 cvt.ratio_max = 2.561;
 
 %% ========== Электромотор и батарея ==========
-elec = struct();
-elec.P_mg_max = 15;        % кВт
-% elec.eta = get_electric_efficiency();  % функция возвращает КПД компонентов
+mg = struct();
+mg.P_mg_max = 15;        % кВт
+mg.rpm_tmax_curve = [0, 500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500];
+mg.torque_tmax_curve = [89, 88, 88, 88, 88, 88, 88, 80, 72, 65, 59, 54];
+mg.T_max_func = @(w) interp1(mg.rpm_tmax_curve*(2*pi/60), mg.torque_tmax_curve, w, 'linear', 'extrap');
 eta_inv = 0.85;
-elec.E_bat_max = 0.8;      % кВт·ч
+mg.E_bat_max = 0.8;      % кВт·ч
 
 %% ========== Параметры стратегии ECMS ==========
 hybrid = struct();
@@ -133,7 +135,7 @@ for k = 2:N
             T_mg_req = T_in_req - T_ice_brake;  % сколько нужно добавить МГ
             
             % Максимальный генераторный момент МГ
-            T_mg_max_gen = -min(elec.P_mg_max*1000 / w_eng, 150);
+            T_mg_max_gen = -mg.T_max_func(w_eng);
             if T_mg_req < T_mg_max_gen
                 T_mg_req = T_mg_max_gen;   % ограничиваем
             end
@@ -159,7 +161,7 @@ for k = 2:N
         end
         
         fuel_flow(k) = 0;   % отсечка топлива
-        SOC = SOC - best_P_batt * dt(k) / 3600 / elec.E_bat_max;  % P_batt отриц., SOC растёт
+        SOC = SOC - best_P_batt * dt(k) / 3600 / mg.E_bat_max;  % P_batt отриц., SOC растёт
         SOC = min(max(SOC, 0), 1);
         mg_torque_points(k) = best_T_mg;
         mg_power_points(k) = best_P_mg_mech;
@@ -192,20 +194,18 @@ for k = 2:N
         if isnan(CVT_eff), continue; end
         T_in_req = T_cvt_out / (i_cvt * CVT_eff) + vehicle.J_e * ek * vehicle.GP_ratio * i_cvt;
         
-        % Максимальный момент МГ (по мощности и механическому пределу)
-        T_mg_max_abs = min(elec.P_mg_max*1000 / w_eng, 150);  % Н·м (положит.)
         % Максимальный момент ДВС
         T_ice_max_allowed = engine.Tmax(rpm);
         % Нижняя граница момента ДВС (не меньше T_ice_min, исключает EV)
-        T_ice_low = max(engine.T_ice_min, T_in_req - T_mg_max_abs);
+        T_ice_low = max(engine.T_ice_min, T_in_req - mg.T_max_func(w_eng));
         % Верхняя граница момента ДВС
-        T_ice_high = min(T_ice_max_allowed, T_in_req + T_mg_max_abs);
+        T_ice_high = min(T_ice_max_allowed, T_in_req + mg.T_max_func(w_eng));
         if T_ice_low > T_ice_high, continue; end
         
         % Перебор момента ДВС
         for T_ice = T_ice_low:5:T_ice_high
             T_mg = T_in_req - T_ice;
-            if abs(T_mg) > T_mg_max_abs + 1e-6, continue; end
+            if abs(T_mg) > mg.T_max_func(w_eng) + 1e-6, continue; end
             
             % Расход топлива
             bsfc = BSFC(rpm, T_ice);
@@ -246,7 +246,7 @@ for k = 2:N
     mode_points(k) = 2;
     rpm_points(k) = best_rpm;
     torque_points(k) = best_T_eng;
-    SOC = SOC - best_P_batt * dt(k) / 3600 / elec.E_bat_max;
+    SOC = SOC - best_P_batt * dt(k) / 3600 / mg.E_bat_max;
     SOC = min(max(SOC, 0), 1);
     SOC_history(k) = SOC;
 end
@@ -257,7 +257,7 @@ distance = trapz(t, v);                           % метры
 
 delta_SOC = hybrid.SOC_init - SOC;
 % Эквивалентный расход топлива за изменение SOC
-fuel_eq_SOC = delta_SOC * elec.E_bat_max * 3600 * hybrid.s_mid;  % граммы
+fuel_eq_SOC = delta_SOC * mg.E_bat_max * 3600 * hybrid.s_mid;  % граммы
 fuel_total_corrected = fuel_total_real + fuel_eq_SOC;
 
 fuel_l_real = fuel_total_real / 745;              % литры
@@ -342,7 +342,7 @@ function eta = MG_efficiency(w, T, mode)
         eta = P_mech / (P_mech + P_loss);
     else
         % Генераторный режим: отдаваемая электрическая мощность меньше механической
-        % P_elec = P_mech - P_loss
+        % P_mg = P_mech - P_loss
         eta = (P_mech - P_loss) / P_mech;
     end
     

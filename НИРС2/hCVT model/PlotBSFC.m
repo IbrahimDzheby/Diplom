@@ -58,6 +58,9 @@ ylabel('Момент, Н·м', 'FontSize', 12);
 zlabel('BSFC, г/кВт·ч', 'FontSize', 12);
 title('3D Поверхность BSFC с треугольной сеткой', 'FontSize', 14);
 
+xlim([800, 5200]);
+ylim([0, 150]);
+
 % Хороший угол обзора
 view(135, 30);
 grid on;
@@ -129,17 +132,12 @@ ylabel('Момент, Н·м', 'FontSize', 12);
 title('Изолинии BSFC и кривая максимального момента', 'FontSize', 14);
 
 % Ограничиваем оси: обороты 600-5400, момент 0-150
-xlim([600, 5400]);
+xlim([800, 5200]);
 ylim([0, 150]);
 
 grid on;
 box on;
 legend('Изолинии BSFC', 'Макс. момент', 'Location', 'best');
-
-% Добавляем небольшие метки границ
-text(5300, 10, '5400', 'HorizontalAlignment', 'right', 'FontSize', 9);
-text(620, 145, '600', 'VerticalAlignment', 'top', 'FontSize', 9);
-text(620, 10, '600', 'HorizontalAlignment', 'right', 'FontSize', 9);
 
 %% 4. Вывод статистики
 fprintf('\n--- Статистика ---\n');
