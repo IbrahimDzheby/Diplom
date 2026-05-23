@@ -20,9 +20,9 @@ vehicle.J_e = 0.2;
 
 %% ========== ДВС ==========
 engine = struct();
-engine.rpm_min = 600;
-engine.rpm_max = 5400;
-engine.rpm_tmax_curve = [800, 1113.39, 1614.81, 2015.95, 2404.56, 3006.27, 3231.91, 3607.98, 4009.12, 4372.65, 4686.04, 5986.89, 5200];
+engine.rpm_min = 800;
+engine.rpm_max = 5200;
+engine.rpm_tmax_curve = [800, 1113.39, 1614.81, 2015.95, 2404.56, 3006.27, 3231.91, 3607.98, 4009.12, 4372.65, 4686.04, 4986.89, 5200];
 engine.torque_tmax_curve = [101.10, 106.59, 116.48, 123.08, 131.32, 136.81, 138.46, 141.76, 142.86, 140.11, 137.91, 136.26, 134.07];
 engine.Tmax = @(rpm) interp1(engine.rpm_tmax_curve, engine.torque_tmax_curve, rpm, 'linear', 'extrap');
 engine.T_ice_min = 10;               % минимальный момент ДВС при подаче топлива (Н·м) – исключает EV
@@ -34,9 +34,9 @@ cvt.ratio_all = cvt_data{:,1};
 cvt.torque_all = cvt_data{:,2};
 cvt.eta_all = cvt_data{:,3};
 cvt.ratio_vec = unique(cvt.ratio_all, 'stable');
-cvt.torque_vec = unique(cvt.torque_all, 'stable');
-cvt.eta_grid = reshape(cvt.eta_all, length(cvt.torque_vec), length(cvt.ratio_vec))';
-cvt.eta_surf = griddedInterpolant({cvt.ratio_vec, cvt.torque_vec}, cvt.eta_grid, 'linear', 'none');
+cvt_torque_vec = unique(cvt.torque_all, 'stable');
+cvt.eta_grid = reshape(cvt.eta_all, length(cvt_torque_vec), length(cvt.ratio_vec))';
+cvt_eta_surf = griddedInterpolant({cvt.ratio_vec, cvt_torque_vec}, cvt.eta_grid, 'linear', 'none');
 cvt.ratio_min = 0.427;
 cvt.ratio_max = 2.561;
 
@@ -126,7 +126,7 @@ for k = 2:N
             if rpm < engine.rpm_min || rpm > engine.rpm_max, continue; end
             
             T_cvt_out = T_wheel_brake / (vehicle.GP_ratio * vehicle.Tsmn_eff) + vehicle.J_t * ek * vehicle.GP_ratio;
-            CVT_eff_brake = CVT_map(i_cvt, abs(T_cvt_out), cvt.eta_surf, cvt.torque_vec);
+            CVT_eff_brake = CVT_map(i_cvt, abs(T_cvt_out));
             if isnan(CVT_eff_brake), continue; end
             T_in_req = T_cvt_out / (i_cvt * CVT_eff_brake) + vehicle.J_e * ek * vehicle.GP_ratio * i_cvt;  % отриц.
             
@@ -190,7 +190,7 @@ for k = 2:N
         
         T_cvt_out = T_wheel / (vehicle.GP_ratio * vehicle.Tsmn_eff) + vehicle.J_t * ek * vehicle.GP_ratio;
         if T_cvt_out <= 0, continue; end
-        CVT_eff = CVT_map(i_cvt, T_cvt_out, cvt.eta_surf, cvt.torque_vec);
+        CVT_eff = CVT_map(i_cvt, T_cvt_out);
         if isnan(CVT_eff), continue; end
         T_in_req = T_cvt_out / (i_cvt * CVT_eff) + vehicle.J_e * ek * vehicle.GP_ratio * i_cvt;
         
@@ -352,7 +352,10 @@ end
 
 %% Значение потерь в вариаторе
 
-function eta = CVT_map(i_val, T_out_val, cvt_eta_surf, cvt_torque_vec)
+function eta = CVT_map(i_val, T_out_val)
+    
+    global cvt_eta_surf cvt_torque_vec %#ok<GVMIS>
+    
     cost = @(T_in) i_val * T_in * cvt_eta_surf(i_val, T_in) - T_out_val;
     options = optimset('Display','off');
     try

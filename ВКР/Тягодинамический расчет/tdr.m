@@ -15,15 +15,28 @@ AB = 0.45; % развесоква для передней оси
 
 mu = 0.85; % коэффициент сцепления
 k_aux = 0.95; % коэффициент потерь на вспомогательные системы
-k_mt = 0.97;  % коэффициент потерь главной передаче
+k_mt = 0.95;  % коэффициент потерь главной передаче
+
+final_drive = 5.4;
+
+%% ========== CVT карта ==========
+cvt_data = readtable('CVT.xlsx', 'VariableNamingRule', 'preserve');
+cvt.ratio_all = cvt_data{:,1};
+cvt.torque_all = cvt_data{:,2};
+cvt.eta_all = cvt_data{:,3};
+cvt.ratio_vec = unique(cvt.ratio_all, 'stable');
+cvt_torque_vec = unique(cvt.torque_all, 'stable');
+cvt.eta_grid = reshape(cvt.eta_all, length(cvt_torque_vec), length(cvt.ratio_vec))';
+cvt_eta_surf = griddedInterpolant({cvt.ratio_vec, cvt_torque_vec}, cvt.eta_grid, 'linear', 'none');
 
 i_CVT_max = 2.561; % минимальная передача (низшая)
 i_CVT_min = 0.427; % максимальная передача (высшая)
 
 %% Входные данные двигателя
-n_points = 43; % количество точек
-RPM = linspace(1250, 6375, n_points); % обороты двигателя
-Torque = [113.6 115.3 117.1 118.9 120.7 122 123.3 124.2 125.1 125.8 126.4 126.8 127.1 127.6 128 128.8 129.6 132.6 133.3 135.3 137.3 138.8 140.2 141.3 141.1 140.6 140 139.7 139.3 139.1 138.9 138 137.1 135.7 134.2 132.8 131.3 130.1 128.9 125.6 122.2 119.6 116.9]; % крутящий момент Нм
+n_points = 13;
+
+RPM = [800, 1113.39, 1614.81, 2015.95, 2404.56, 3006.27, 3231.91, 3607.98, 4009.12, 4372.65, 4686.04, 4986.89, 5200];
+Torque = [101.10, 106.59, 116.48, 123.08, 131.32, 136.81, 138.46, 141.76, 142.86, 140.11, 137.91, 136.26, 134.07]; % крутящий момент Нм
 Power = (Torque .* RPM * 2 * pi / 60) / 1000; % мощность в кВт
 
 %% Минимальные и максимальные обороты
@@ -37,62 +50,34 @@ Torque_max_RPM = Torque(end);       % момент при max оборотах
 
 %% Потери трансмиссии
 
-function efficiency = func(i, M)
-
-    global k_aux k_mt i_CVT_min i_CVT_max Torque_max %#ok<GVMIS>
+function eta = CVT_map(i_val, T_out_val)
     
-    % Параметры перевернутого параболоида
-    i0 = (i_CVT_min + i_CVT_max)/2; % центр параболы
-
-    % Линейное изменение пика и краев по моменту M
-    z_max_M = 0.88 + (0.92-0.88)/Torque_max .* M; % пик параболы
-    z_min_M = 0.76 + (0.86-0.76)/Torque_max .* M; % крайние значения
-
-    % Коэффициент параболы по M
-    a_M = (z_max_M - z_min_M) ./ (i_CVT_max - i0).^2;
-
-    % Перевернутый параболоид по i для каждого M
-    fi = z_max_M - a_M .* (i - i0).^2;
-
-    % Итоговый КПД с учетом потерь
-    efficiency = k_aux * k_mt .* fi;
+    global k_aux k_mt cvt_eta_surf cvt_torque_vec %#ok<GVMIS>
+    
+    cost = @(T_in) i_val * T_in * cvt_eta_surf(i_val, T_in) - T_out_val;
+    options = optimset('Display','off');
+    try
+        T_sol = fzero(cost, [min(cvt_torque_vec), max(cvt_torque_vec)], options);
+        eta = k_aux*k_mt*cvt_eta_surf(i_val, T_sol);
+    catch
+        eta = NaN;
+    end
 end
 
-%% Визуализация поверхности КПД вариатора
-
-i = linspace(i_CVT_min, i_CVT_max, n_points);
-M = linspace(0, Torque_max, n_points);
-
-[I, MESH] = meshgrid(i, M);
-
-% Значения КПД вариатора
-ETA = func(I, MESH)/(k_aux*k_mt);
-
-figure;
-surf(I, MESH, ETA);
-xlabel('Передаточное число вариатора u');
-ylabel('Момент M, Нм');
-zlabel('КПД');
-title('КПД вариатора \eta(u, M)');
-shading interp;
-colormap jet
-colorbar;
-zlim([0.73 0.95]);
-
-%% Расчет главной передачи
-
-% Поиск ГП по максимальной скорости
-V_max = 3000; % м/мин 180 км/ч Максимальная скорость автомобиля
-wheel_length = 2 * pi * wheel_radius;
-wheel_RPM_max = V_max / wheel_length;
-
-% определение оборотов двигателя на пиковой мощности
-[~, max_power_point] = max(Power); % индекс точки пиковой мощности
-engine_RPM_max_power = RPM(max_power_point);
-
-final_drive = engine_RPM_max_power / (wheel_RPM_max * i_CVT_min);
-
-disp(final_drive);
+% %% Расчет главной передачи
+% 
+% % Поиск ГП по максимальной скорости
+% V_max = 3000; % м/мин 180 км/ч Максимальная скорость автомобиля
+% wheel_length = 2 * pi * wheel_radius;
+% wheel_RPM_max = V_max / wheel_length;
+% 
+% % определение оборотов двигателя на пиковой мощности
+% [~, max_power_point] = max(Power); % индекс точки пиковой мощности
+% engine_RPM_max_power = RPM(max_power_point);
+% 
+% final_drive = engine_RPM_max_power / (wheel_RPM_max * i_CVT_min);
+% 
+% disp(final_drive);
 
 %% Внешняя скоростная характеристика
 
@@ -106,7 +91,7 @@ yyaxis left
 plot(RPM, Torque, 'Color', blue, 'LineWidth', 2)
 ylabel('Момент, Нм')
 set(gca, 'YColor', blue);
-ylim([105 145]);
+ylim([95 150]);
 
 % --- Правая ось Y (Мощность) ---
 yyaxis right
@@ -140,22 +125,22 @@ F_res = F_roll + F_aero;
 i_range = linspace(i_CVT_min, i_CVT_max, n_points);
 
 % Кривая тяги от скорости на высшей передаче
-eta_low  = func(i_CVT_max, Torque); % массив коэффициентов эффективности
+eta_low  = CVT_map(i_CVT_max, Torque); % массив коэффициентов эффективности
 v_low  = (2*pi*RPM/60) * wheel_radius / (i_CVT_max*final_drive) * 3.6;
 F_low  = Torque .* eta_low .* i_CVT_max * final_drive / wheel_radius;
 
 % Кривая тяги от скорости на низшей передаче
-eta_high = func(i_CVT_min, Torque); % массив коэффициентов эффективности
+eta_high = CVT_map(i_CVT_min, Torque); % массив коэффициентов эффективности
 v_high = (2*pi*RPM/60) * wheel_radius / (i_CVT_min*final_drive) * 3.6;
 F_high = Torque .* eta_high .* i_CVT_min * final_drive / wheel_radius;
 
 % Изменение тяги на низших оборотах от передаточного числа
-eta_left = func(i_range, Torque_min_RPM); % массив коэффициентов эффективности
+eta_left = CVT_map(i_range, Torque_min_RPM); % массив коэффициентов эффективности
 v_left  = (2*pi*RPM_min/60) * wheel_radius ./ (i_range*final_drive) * 3.6;
 F_left  = Torque_min_RPM .* eta_left .* i_range * final_drive / wheel_radius;
 
 % Изменение тяги на высших оборотах от передаточного числа
-eta_right = func(i_range, Torque_max_RPM); % массив коэффициентов эффективности
+eta_right = CVT_map(i_range, Torque_max_RPM); % массив коэффициентов эффективности
 v_right = (2*pi*RPM_max/60) * wheel_radius ./ (i_range*final_drive) * 3.6;
 F_right = Torque_max_RPM .* eta_right .* i_range * final_drive / wheel_radius;
 
