@@ -29,6 +29,8 @@ engine.T_ice_min = 10;               % минимальный момент ДВ�
 engine.T_brake = @(rpm) max(-50, -0.02 * rpm);  % тормозной момент ДВС при отсечке (Н·м)
 
 %% ========== CVT карта ==========
+global cvt_eta_surf cvt_torque_vec %#ok<GVMIS>
+
 cvt_data = readtable('CVT.xlsx', 'VariableNamingRule', 'preserve');
 cvt.ratio_all = cvt_data{:,1};
 cvt.torque_all = cvt_data{:,2};
@@ -296,13 +298,72 @@ xlabel('Время, с'); ylabel('Скорость, км/ч');
 title('Профиль скорости WLTP'); grid on;
 
 % 4. Рабочие точки ДВС (только тяговый режим)
-figure;
-idx_ice = (mode_points == 2);   % только гибридная тяга
-scatter(rpm_points(idx_ice), torque_points(idx_ice), 15, 'filled');
-xlabel('Обороты ДВС, об/мин'); ylabel('Крутящий момент ДВС, Н·м');
-title('Рабочие точки ДВС (тяговый режим)');
-xlim([0 6000]); ylim([0 150]);
+
+% Изолинии BSFC из Excel (три колонки: rpm, torque, bsfc)
+if exist('BSFC.xlsx', 'file')
+    bsfc_lines = readmatrix('BSFC.xlsx');
+    rpm_lines = bsfc_lines(:, 1);
+    torque_lines = bsfc_lines(:, 2);
+    bsfc_values = bsfc_lines(:, 3);
+else
+    warning('Файл BSFC.xlsx не найден. Изолинии не будут построены.');
+    rpm_lines = []; torque_lines = []; bsfc_values = [];
+end
+
+rpm_max_curve = engine.rpm_tmax_curve;
+torque_max_curve = engine.torque_tmax_curve;
+
+figure('Name', 'Рабочие точки ДВС на карте BSFC', 'NumberTitle', 'off', 'Color', 'w');
+set(gcf, 'Position', [100, 100, 900, 700]);
+hold on;
+
+% 1. Изолинии BSFC (если данные загружены)
+if ~isempty(rpm_lines)
+    unique_bsfc = unique(bsfc_values);
+    unique_bsfc = sort(unique_bsfc);
+    colors = jet(length(unique_bsfc));
+    
+    for i = 1:length(unique_bsfc)
+        level = unique_bsfc(i);
+        level_idx = abs(bsfc_values - level) < 1e-6;
+        rpm_level = rpm_lines(level_idx);
+        torque_level = torque_lines(level_idx);
+        
+        if length(rpm_level) > 2
+            % Сортировка точек по полярному углу для замыкания контура
+            center_rpm = mean(rpm_level);
+            center_torque = mean(torque_level);
+            angles = atan2(torque_level - center_torque, rpm_level - center_rpm);
+            [~, sort_idx] = sort(angles);
+            rpm_level = rpm_level(sort_idx);
+            torque_level = torque_level(sort_idx);
+            rpm_level(end+1) = rpm_level(1);
+            torque_level(end+1) = torque_level(1);
+            plot(rpm_level, torque_level, 'Color', colors(i, :), 'LineWidth', 1.5);
+        elseif length(rpm_level) == 2
+            plot(rpm_level, torque_level, 'Color', colors(i, :), 'LineWidth', 1.5);
+        end
+    end
+end
+
+% 2. Кривая максимального момента (черная жирная линия)
+plot(rpm_max_curve, torque_max_curve, 'k-', 'LineWidth', 3);
+
+% 3. Рабочие точки моделирования (только тяговый режим)
+idx_ice = (mode_points == 2);
+scatter(rpm_points(idx_ice), torque_points(idx_ice), 12, 'r', 'filled', 'MarkerEdgeColor', 'k', 'LineWidth', 0.5);
+
+% Настройки графика
+xlabel('Обороты ДВС, об/мин', 'FontSize', 12);
+ylabel('Крутящий момент ДВС, Н·м', 'FontSize', 12);
+title('Рабочие точки ДВС на фоне изолиний BSFC и кривой момента', 'FontSize', 14);
+xlim([0 6000]);
+ylim([0 150]);
 grid on;
+box on;
+legend('Изолинии BSFC', 'Макс. момент', 'Точки моделирования', 'Location', 'best');
+
+hold off;
 
 %% Значение топливного эквивалента
 
