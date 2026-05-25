@@ -26,21 +26,21 @@ idle_fuel = 0.6 / 3600; % ~0.6 л/час → л/с
 
 %% Диапазон оборотов и предельный момент ДВС
 
-rpm_grid = linspace(800, 5200, 50);
+rpm_grid = linspace(600, 5400, 50);
 
-rpm_tmax_curve = [800
-    1113.39
-    1614.81
-    2015.95
-    2404.56
-    3006.27
-    3231.91
-    3607.98
-    4009.12
-    4372.65
-    4686.04
-    4986.89
-    5200];
+rpm_tmax_curve = [600.00
+941.88
+1488.89
+1926.50
+2350.43
+3006.84
+3252.99
+3663.25
+4100.85
+4497.44
+4839.32
+5167.52
+5400.00];
 
 torque_tmax_curve = [101.10
 106.59
@@ -73,7 +73,7 @@ cvt_eta_grid = reshape(cvt_eta_all, length(cvt_torque_vec), length(cvt_ratio_vec
 cvt_eta_surf = griddedInterpolant({cvt_ratio_vec, cvt_torque_vec}, cvt_eta_grid, 'linear', 'none');
 
 %% WLTP цикл
-data = readtable('WLTP_road.xlsx');
+data = readtable('WLTP_city.xlsx');
 
 t = data.Time;        % [s]
 v = data.Speed / 3.6; % [m/s]
@@ -194,30 +194,23 @@ for k = 2:length(t)
 
 end
 
-% figure;
-% plot(t, fuel_flow);
-% xlabel('t [s]');
-% ylabel('Fuel [g/s]');
-% title('Fuel flow');
-% grid on;
-
 figure;
-plot(t, fuel_flow, 'b-', 'LineWidth', 1.5);
-set(gca, 'FontName', 'Times New Roman', 'FontSize', 20);
-ylabel('Расход топлива, г/с', 'FontName', 'Times New Roman', 'FontSize', 20);
-xlabel('Время, с', 'FontName', 'Times New Roman', 'FontSize', 20);
+plot(t, fuel_flow);
+xlabel('t [s]');
+ylabel('Fuel [g/s]');
+title('Fuel flow');
 grid on;
 
-% figure;
-% scatter(rpm_points, torque_points, 10, 'filled');
-% grid on;
-% 
-% xlabel('Engine speed (RPM)');
-% ylabel('Torque (Nm)');
-% title('Рабочие точки двигателя');
-% 
-% xlim([0 6000]);
-% ylim([0 150]);
+figure;
+scatter(rpm_points, torque_points, 10, 'filled');
+grid on;
+
+xlabel('Engine speed (RPM)');
+ylabel('Torque (Nm)');
+title('Рабочие точки двигателя');
+
+xlim([0 6000]);
+ylim([0 150]);
 
 % Изолинии BSFC из Excel (три колонки: rpm, torque, bsfc)
 if exist('BSFC.xlsx', 'file')
@@ -229,6 +222,9 @@ else
     warning('Файл BSFC.xlsx не найден. Изолинии не будут построены.');
     rpm_lines = []; torque_lines = []; bsfc_values = [];
 end
+
+rpm_max_curve = engine.rpm_tmax_curve;
+torque_max_curve = engine.torque_tmax_curve;
 
 figure('Name', 'Рабочие точки ДВС на карте BSFC', 'NumberTitle', 'off',...
     'Color', 'w');
@@ -268,14 +264,15 @@ if ~isempty(rpm_lines)
 end
 
 % 2. Кривая максимального момента (черная жирная линия)
-plot(rpm_tmax_curve, torque_tmax_curve, 'k-', 'LineWidth', 3);
+plot(rpm_max_curve, torque_max_curve, 'k-', 'LineWidth', 3);
 
-scatter(rpm_points, torque_points, 12, 'r', 'filled');
+% 3. Рабочие точки моделирования (только тяговый режим)
+idx_ice = (mode_points == 2);
+scatter(rpm_points(idx_ice), torque_points(idx_ice), 12, 'r', 'filled');
 
 % Настройки графика
 set(gcf, 'Units', 'inches', 'Position', [1, 1, 12, 8]);
 % Настройка шрифта для осей, подписей и заголовка
-set(gca, 'FontName', 'Times New Roman', 'FontSize', 20);
 xlabel('Обороты ДВС, об/мин', 'FontSize', 20);
 ylabel('Крутящий момент ДВС, Н·м', 'FontSize', 20);
 xlim([500 5500]);

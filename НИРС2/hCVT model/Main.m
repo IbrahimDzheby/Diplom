@@ -13,7 +13,8 @@ vehicle.GP_ratio = 5.4;
 vehicle.GP_eff   = 0.95;
 vehicle.Gimbal_eff = 0.98;
 vehicle.WheelRed_eff = 0.99;
-vehicle.Tsmn_eff = vehicle.GP_eff * vehicle.Gimbal_eff * vehicle.WheelRed_eff;
+vehicle.Tsmn_eff = vehicle.GP_eff * vehicle.Gimbal_eff * ...
+    vehicle.WheelRed_eff;
 vehicle.J_w = 7.0;
 vehicle.J_t = 1.0;
 vehicle.J_e = 0.2;
@@ -22,11 +23,14 @@ vehicle.J_e = 0.2;
 engine = struct();
 engine.rpm_min = 800;
 engine.rpm_max = 5200;
-engine.rpm_tmax_curve = [800, 1113.39, 1614.81, 2015.95, 2404.56, 3006.27, 3231.91, 3607.98, 4009.12, 4372.65, 4686.04, 4986.89, 5200];
-engine.torque_tmax_curve = [101.10, 106.59, 116.48, 123.08, 131.32, 136.81, 138.46, 141.76, 142.86, 140.11, 137.91, 136.26, 134.07];
-engine.Tmax = @(rpm) interp1(engine.rpm_tmax_curve, engine.torque_tmax_curve, rpm, 'linear', 'extrap');
-engine.T_ice_min = 10;               % минимальный момент ДВС при подаче топлива (Н·м) – исключает EV
-engine.T_brake = @(rpm) max(-50, -0.02 * rpm);  % тормозной момент ДВС при отсечке (Н·м)
+engine.rpm_tmax_curve = [800, 1113.39, 1614.81, 2015.95, 2404.56, ...
+    3006.27, 3231.91, 3607.98, 4009.12, 4372.65, 4686.04, 4986.89, 5200];
+engine.torque_tmax_curve = [101.10, 106.59, 116.48, 123.08, 131.32, ...
+    136.81, 138.46, 141.76, 142.86, 140.11, 137.91, 136.26, 134.07];
+engine.Tmax = @(rpm) interp1(engine.rpm_tmax_curve, ...
+    engine.torque_tmax_curve, rpm, 'linear', 'extrap');
+engine.T_ice_min = 10;
+engine.T_brake = @(rpm) max(-50, -0.02 * rpm);
 
 %% ========== CVT карта ==========
 global cvt_eta_surf cvt_torque_vec %#ok<GVMIS>
@@ -37,30 +41,34 @@ cvt.torque_all = cvt_data{:,2};
 cvt.eta_all = cvt_data{:,3};
 cvt.ratio_vec = unique(cvt.ratio_all, 'stable');
 cvt_torque_vec = unique(cvt.torque_all, 'stable');
-cvt.eta_grid = reshape(cvt.eta_all, length(cvt_torque_vec), length(cvt.ratio_vec))';
-cvt_eta_surf = griddedInterpolant({cvt.ratio_vec, cvt_torque_vec}, cvt.eta_grid, 'linear', 'none');
+cvt.eta_grid = reshape(cvt.eta_all, length(cvt_torque_vec), ...
+    length(cvt.ratio_vec))';
+cvt_eta_surf = griddedInterpolant({cvt.ratio_vec, cvt_torque_vec}, ...
+    cvt.eta_grid, 'linear', 'none');
 cvt.ratio_min = 0.427;
 cvt.ratio_max = 2.561;
 
 %% ========== Электромотор и батарея ==========
 mg = struct();
 mg.P_mg_max = 15;        % кВт
-mg.rpm_tmax_curve = [0, 500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500];
+mg.rpm_tmax_curve = [0, 500, 1000, 1500, 2000, 2500, 3000, ...
+    3500, 4000, 4500, 5000, 5500];
 mg.torque_tmax_curve = [89, 88, 88, 88, 88, 88, 88, 80, 72, 65, 59, 54];
-mg.T_max_func = @(w) interp1(mg.rpm_tmax_curve*(2*pi/60), mg.torque_tmax_curve, w, 'linear', 'extrap');
+mg.T_max_func = @(w) interp1(mg.rpm_tmax_curve*(2*pi/60), ...
+    mg.torque_tmax_curve, w, 'linear', 'extrap');
 eta_inv = 0.85;
 mg.E_bat_max = 0.8;      % кВт·ч
 
 %% ========== Параметры стратегии ECMS ==========
+SOC_points = [0, 0.3, 0.5, 0.6, 1];
+s_points   = [0.11, 0.1, 0.07, 0.025, 0.018];
+
 hybrid = struct();
-hybrid.s_mid      = 0.07;   % базовый эквивалентный фактор
-hybrid.A_s        = 0.04;   % амплитуда сигмоида
-hybrid.k_s        = 15;     % крутизна
-hybrid.SOC_target = 0.60;   % целевой SOC (60%)
-hybrid.SOC_init   = 0.60;
+hybrid.SOC_init = 0.60;   % начальный SOC
+hybrid.s_mid = 0.07;
 
 %% ========== Цикл WLTP ==========
-data = readtable('WLTP_city.xlsx');
+data = readtable('WLTP_road.xlsx');
 t = data.Time;
 v = data.Speed / 3.6;        % м/с
 dt = [0; diff(t)];
@@ -85,7 +93,7 @@ for k = 2:N
     vk = v(k);
     
     % Вычисляем текущий s(SOC)
-    s_current = compute_s(SOC, hybrid);
+    s_current = compute_s(SOC);
     
     % ---------- ОСТАНОВКА ----------
     if vk == 0
@@ -112,7 +120,7 @@ for k = 2:N
     
     % ---------- ТОРМОЖЕНИЕ / НАКАТ ----------
     if F_total <= 0
-        T_wheel_brake = F_total * vehicle.r + vehicle.J_w * ek;  % отрицательный
+        T_wheel_brake = F_total * vehicle.r + vehicle.J_w * ek;
         
         % Поиск оптимальной рекуперации (с учётом тормозного момента ДВС)
         best_J_brake = inf;
@@ -127,10 +135,13 @@ for k = 2:N
             rpm = w_eng * 60/(2*pi);
             if rpm < engine.rpm_min || rpm > engine.rpm_max, continue; end
             
-            T_cvt_out = T_wheel_brake / (vehicle.GP_ratio * vehicle.Tsmn_eff) + vehicle.J_t * ek * vehicle.GP_ratio;
+            T_cvt_out = T_wheel_brake / ...
+                (vehicle.GP_ratio * vehicle.Tsmn_eff) + ...
+                vehicle.J_t * ek * vehicle.GP_ratio;
             CVT_eff_brake = CVT_map(i_cvt, abs(T_cvt_out));
             if isnan(CVT_eff_brake), continue; end
-            T_in_req = T_cvt_out / (i_cvt * CVT_eff_brake) + vehicle.J_e * ek * vehicle.GP_ratio * i_cvt;  % отриц.
+            T_in_req = T_cvt_out / (i_cvt * CVT_eff_brake) + ...
+                vehicle.J_e * ek * vehicle.GP_ratio * i_cvt;  % отриц.
             
             % Тормозной момент ДВС (отсечка топлива)
             T_ice_brake = engine.T_brake(rpm);  % отрицательный
@@ -163,7 +174,7 @@ for k = 2:N
         end
         
         fuel_flow(k) = 0;   % отсечка топлива
-        SOC = SOC - best_P_batt * dt(k) / 3600 / mg.E_bat_max;  % P_batt отриц., SOC растёт
+        SOC = SOC - best_P_batt * dt(k) / 3600 / mg.E_bat_max;
         SOC = min(max(SOC, 0), 1);
         mg_torque_points(k) = best_T_mg;
         mg_power_points(k) = best_P_mg_mech;
@@ -190,18 +201,21 @@ for k = 2:N
         rpm = w_eng * 60/(2*pi);
         if rpm < engine.rpm_min || rpm > engine.rpm_max, continue; end
         
-        T_cvt_out = T_wheel / (vehicle.GP_ratio * vehicle.Tsmn_eff) + vehicle.J_t * ek * vehicle.GP_ratio;
+        T_cvt_out = T_wheel / (vehicle.GP_ratio * vehicle.Tsmn_eff) + ...
+            vehicle.J_t * ek * vehicle.GP_ratio;
         if T_cvt_out <= 0, continue; end
         CVT_eff = CVT_map(i_cvt, T_cvt_out);
         if isnan(CVT_eff), continue; end
-        T_in_req = T_cvt_out / (i_cvt * CVT_eff) + vehicle.J_e * ek * vehicle.GP_ratio * i_cvt;
+        T_in_req = T_cvt_out / (i_cvt * CVT_eff) + ...
+            vehicle.J_e * ek * vehicle.GP_ratio * i_cvt;
         
         % Максимальный момент ДВС
         T_ice_max_allowed = engine.Tmax(rpm);
         % Нижняя граница момента ДВС (не меньше T_ice_min, исключает EV)
         T_ice_low = max(engine.T_ice_min, T_in_req - mg.T_max_func(w_eng));
         % Верхняя граница момента ДВС
-        T_ice_high = min(T_ice_max_allowed, T_in_req + mg.T_max_func(w_eng));
+        T_ice_high = min(T_ice_max_allowed, T_in_req + ...
+            mg.T_max_func(w_eng));
         if T_ice_low > T_ice_high, continue; end
         
         % Перебор момента ДВС
@@ -268,34 +282,40 @@ result_real = fuel_l_real / (distance / 100000);  % л/100 км
 result_corr = fuel_l_corr / (distance / 100000);
 
 fprintf('Реальный расход: %.2f л/100км\n', result_real);
-fprintf('Скорректированный расход (с учётом SOC): %.2f л/100км\n', result_corr);
+fprintf('Скорректированный расход (с учётом SOC): %.2f л/100км\n', ...
+    result_corr);
 fprintf('Конечный SOC: %.1f %%\n', SOC*100);
 
 %% ========== Графики ==========
 % 1. Мгновенный расход топлива и мощность МГ
 figure;
 yyaxis left;
-plot(t, fuel_flow, 'b-', 'LineWidth', 1.2);
-ylabel('Расход топлива, г/с');
+plot(t, fuel_flow, 'b-', 'LineWidth', 1.5);
+set(gca, 'FontName', 'Times New Roman', 'FontSize', 20);
+ylabel('Расход топлива, г/с', 'FontName', 'Times New Roman', 'FontSize', 20);
 yyaxis right;
-plot(t, mg_power_points, 'r-', 'LineWidth', 1.2);
-ylabel('Мощность МГ, кВт (полож. - тяга, отриц. - генерация)');
-xlabel('Время, с');
-title('Мгновенный расход топлива и мощность электромотора');
+plot(t, mg_power_points, 'r-', 'LineWidth', 1.5);
+ylabel('Мощность МГ, кВт', 'FontName', 'Times New Roman', 'FontSize', 20);
+xlabel('Время, с', 'FontName', 'Times New Roman', 'FontSize', 20);
 grid on;
-legend('Расход топлива', 'Мощность МГ', 'Location','best');
 
 % 2. SOC
 figure;
-plot(t, SOC_history*100, 'k-', 'LineWidth', 1.5);
-xlabel('Время, с'); ylabel('SOC, %');
-title('Уровень заряда батареи'); grid on;
+plot(t, SOC_history*100, 'b-', 'LineWidth', 1.5);
+grid on;
+set(gcf, 'Units', 'inches', 'Position', [1, 1, 12, 4]);
+set(gca, 'FontName', 'Times New Roman', 'FontSize', 20);
+xlabel('Время, с', 'FontName', 'Times New Roman', 'FontSize', 20);
+ylabel('SOC, %', 'FontName', 'Times New Roman', 'FontSize', 20);
 
 % 3. Профиль скорости
 figure;
 plot(t, v*3.6, 'b-', 'LineWidth', 1.5);
-xlabel('Время, с'); ylabel('Скорость, км/ч');
-title('Профиль скорости WLTP'); grid on;
+set(gcf, 'Units', 'inches', 'Position', [1, 1, 12, 4]);
+set(gca, 'FontName', 'Times New Roman', 'FontSize', 20);
+xlabel('Время, с', 'FontName', 'Times New Roman', 'FontSize', 20);
+ylabel('Скорость, км/ч', 'FontName', 'Times New Roman', 'FontSize', 20);
+grid on;
 
 % 4. Рабочие точки ДВС (только тяговый режим)
 
@@ -313,7 +333,8 @@ end
 rpm_max_curve = engine.rpm_tmax_curve;
 torque_max_curve = engine.torque_tmax_curve;
 
-figure('Name', 'Рабочие точки ДВС на карте BSFC', 'NumberTitle', 'off', 'Color', 'w');
+figure('Name', 'Рабочие точки ДВС на карте BSFC', 'NumberTitle', 'off',...
+    'Color', 'w');
 set(gcf, 'Position', [100, 100, 900, 700]);
 hold on;
 
@@ -333,15 +354,18 @@ if ~isempty(rpm_lines)
             % Сортировка точек по полярному углу для замыкания контура
             center_rpm = mean(rpm_level);
             center_torque = mean(torque_level);
-            angles = atan2(torque_level - center_torque, rpm_level - center_rpm);
+            angles = atan2(torque_level - center_torque, rpm_level - ...
+                center_rpm);
             [~, sort_idx] = sort(angles);
             rpm_level = rpm_level(sort_idx);
             torque_level = torque_level(sort_idx);
             rpm_level(end+1) = rpm_level(1);
             torque_level(end+1) = torque_level(1);
-            plot(rpm_level, torque_level, 'Color', colors(i, :), 'LineWidth', 1.5);
+            plot(rpm_level, torque_level, 'Color', colors(i, :), ...
+                'LineWidth', 1.5);
         elseif length(rpm_level) == 2
-            plot(rpm_level, torque_level, 'Color', colors(i, :), 'LineWidth', 1.5);
+            plot(rpm_level, torque_level, 'Color', colors(i, :), ...
+                'LineWidth', 1.5);
         end
     end
 end
@@ -351,45 +375,46 @@ plot(rpm_max_curve, torque_max_curve, 'k-', 'LineWidth', 3);
 
 % 3. Рабочие точки моделирования (только тяговый режим)
 idx_ice = (mode_points == 2);
-scatter(rpm_points(idx_ice), torque_points(idx_ice), 12, 'r', 'filled', 'MarkerEdgeColor', 'k', 'LineWidth', 0.5);
+scatter(rpm_points(idx_ice), torque_points(idx_ice), 12, 'r', 'filled');
 
 % Настройки графика
-xlabel('Обороты ДВС, об/мин', 'FontSize', 12);
-ylabel('Крутящий момент ДВС, Н·м', 'FontSize', 12);
-title('Рабочие точки ДВС на фоне изолиний BSFC и кривой момента', 'FontSize', 14);
-xlim([0 6000]);
+set(gcf, 'Units', 'inches', 'Position', [1, 1, 12, 8]);
+% Настройка шрифта для осей, подписей и заголовка
+set(gca, 'FontName', 'Times New Roman', 'FontSize', 20);
+xlabel('Обороты ДВС, об/мин', 'FontSize', 20);
+ylabel('Крутящий момент ДВС, Н·м', 'FontSize', 20);
+xlim([500 5500]);
 ylim([0 150]);
 grid on;
 box on;
-legend('Изолинии BSFC', 'Макс. момент', 'Точки моделирования', 'Location', 'best');
 
 hold off;
 
 %% Значение топливного эквивалента
 
-function s = compute_s(SOC, hybrid)
-    % Адаптивный эквивалентный фактор s(SOC)
-    % SOC – уровень заряда (0..1)
-    % hybrid – структура с параметрами s_mid, A_s, k_s, SOC_target
-    s = hybrid.s_mid - hybrid.A_s * tanh(hybrid.k_s * (SOC - hybrid.SOC_target));
+function s = compute_s(SOC)
+    % Кусочно-линейная интерполяция по пяти точкам
+    SOC_pts = [0, 0.3, 0.5, 0.6, 1];
+    s_pts   = [0.11, 0.1, 0.07, 0.04, 0.03];
+    
+    % Линейная интерполяция с экстраполяцией (ограничим позже)
+    s = interp1(SOC_pts, s_pts, SOC, 'linear', 'extrap');
+    % Ограничиваем, чтобы не выходить за разумные пределы
+    s = min(max(s, 0.02), 0.15);
 end
 
 %% Значение потерь в электродвигателе
 
 function eta = MG_efficiency(w, T, mode)
-    % Вычисление КПД электромотора-генератора (PMSM) по аналитической модели потерь
-    % w   - угловая скорость (рад/с)
-    % T   - электромагнитный момент (Н·м), положительный для motor, отрицательный для gen
-    % mode - 'motor' или 'gen'
     
     % Параметры потерь (подбираются под конкретный 15 кВт мотор)
-    k_c = 0.005;      % коэффициент потерь в меди, 1/(Н·м)² * ? – калибруется
-    k_i = 2.0;        % коэффициент потерь в стали + мех., Вт/(рад/с)
-    k_w = 0.1;        % коэффициент вентиляционных потерь, Вт/(рад/с)^1.5
-    C   = 50;         % постоянные потери (контроллер и пр.), Вт
+    k_c = 0.005;      % коэффициент потерь в меди
+    k_i = 2.0;        % коэффициент потерь в стали + мех.
+    k_w = 0.1;        % коэффициент вентиляционных потерь
+    C   = 50;         % постоянные потери (контроллер и пр.)
     
     if abs(T) < 0.01 || w < 1.0
-        eta = 0.5;    % при нулевой нагрузке КПД низкий, чтобы избежать деления на ноль
+        eta = 0.5;    % при нулевой нагрузке КПД низкий
         return;
     end
     
@@ -402,8 +427,7 @@ function eta = MG_efficiency(w, T, mode)
         % Потребляемая электрическая мощность больше механической
         eta = P_mech / (P_mech + P_loss);
     else
-        % Генераторный режим: отдаваемая электрическая мощность меньше механической
-        % P_mg = P_mech - P_loss
+        % Отдаваемая электрическая мощность меньше механической
         eta = (P_mech - P_loss) / P_mech;
     end
     
@@ -420,7 +444,8 @@ function eta = CVT_map(i_val, T_out_val)
     cost = @(T_in) i_val * T_in * cvt_eta_surf(i_val, T_in) - T_out_val;
     options = optimset('Display','off');
     try
-        T_sol = fzero(cost, [min(cvt_torque_vec), max(cvt_torque_vec)], options);
+        T_sol = fzero(cost, [min(cvt_torque_vec), ...
+            max(cvt_torque_vec)], options);
         eta = cvt_eta_surf(i_val, T_sol);
     catch
         eta = NaN;
@@ -452,8 +477,9 @@ function bsfc = BSFC(rpm, torque)
     end
     
     % Проверяем, что точка внутри области данных
-    if rpm < rpm_min || rpm > rpm_max || torque < torque_min || torque > torque_max
-        % Точка вне области - возвращаем NaN или можно задать граничное значение
+    if rpm < rpm_min || rpm > rpm_max || torque < torque_min || ...
+            torque > torque_max
+        % Точка вне области - возвращаем NaN
         bsfc = NaN;
         return;
     end
@@ -477,8 +503,7 @@ function bsfc = BSFC(rpm, torque)
         end
     end
     
-    % Если не нашли треугольник (точка между контурами, но вне треугольников)
-    % Такое возможно на границах между уровнями
+    % Если не нашли треугольник
     bsfc = NaN;
 end
 
