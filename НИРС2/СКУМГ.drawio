@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0" pages="3">
   <diagram name="Вариатор" id="6bHOwoG7S6CLO9r8L4gs">
-    <mxGraphModel dx="1393" dy="825" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="4681" math="0" shadow="0">
+    <mxGraphModel dx="1424" dy="634" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="4681" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -96,7 +96,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="Гибрид" id="gfI1oZJeWlCT_fWeh-vs">
-    <mxGraphModel dx="1277" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="4681" math="0" shadow="0">
+    <mxGraphModel dx="1813" dy="807" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="4681" math="0" shadow="0">
       <root>
         <mxCell id="Z9kGhjyaYWPqEakrZPW5-0" />
         <mxCell id="Z9kGhjyaYWPqEakrZPW5-1" parent="Z9kGhjyaYWPqEakrZPW5-0" />
@@ -217,7 +217,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="Части" id="qU08Xi1wl660LJGr6o9e">
-    <mxGraphModel dx="1108" dy="493" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="4681" math="0" shadow="0">
+    <mxGraphModel dx="1662" dy="740" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="4681" math="0" shadow="0">
       <root>
         <mxCell id="CBjeNMQ2Lrh5itBEwk0L-0" />
         <mxCell id="CBjeNMQ2Lrh5itBEwk0L-1" parent="CBjeNMQ2Lrh5itBEwk0L-0" />

@@ -79,7 +79,6 @@ unique_bsfc = sort(unique_bsfc);
 fprintf('Построение изолиний для %d уровней BSFC:\n', length(unique_bsfc));
 
 % Создаем радужную цветовую карту для изолиний
-% Красный - макс. BSFC, синий - мин. BSFC
 colors = jet(length(unique_bsfc));
 
 hold on;
@@ -89,41 +88,45 @@ for i = 1:length(unique_bsfc)
     level = unique_bsfc(i);
     
     % Находим все точки с этим значением BSFC
-    level_idx = abs(bsfc_values - level) < 1e-6; % Допуск из-за погрешностей float
+    level_idx = abs(bsfc_values - level) < 1e-6;
     rpm_level = rpm_lines(level_idx);
     torque_level = torque_lines(level_idx);
     
     % Сортируем точки по полярному углу для правильного обхода изолинии
     if length(rpm_level) > 2
-        % Находим центр масс точек
         center_rpm = mean(rpm_level);
         center_torque = mean(torque_level);
-        
-        % Вычисляем угол каждой точки относительно центра
         angles = atan2(torque_level - center_torque, rpm_level - center_rpm);
-        
-        % Сортируем точки по углу
         [~, sort_idx] = sort(angles);
         rpm_level = rpm_level(sort_idx);
         torque_level = torque_level(sort_idx);
-        
-        % Замыкаем контур (добавляем первую точку в конец)
+        % Замыкаем контур
         rpm_level(end+1) = rpm_level(1);
         torque_level(end+1) = torque_level(1);
         
-        % Рисуем изолинию с цветом из радужной палитры
-        plot(rpm_level, torque_level, 'Color', colors(i, :), 'LineWidth', 2);
+        % Рисуем изолинию С ОТКЛЮЧЁННОЙ ВИДИМОСТЬЮ В ЛЕГЕНДЕ
+        plot(rpm_level, torque_level, 'Color', colors(i, :), 'LineWidth', 2, ...
+            'HandleVisibility', 'off');
         
         fprintf('  Уровень %d: %d точек\n', round(level), length(rpm_level)-1);
     elseif length(rpm_level) == 2
-        % Если всего 2 точки - просто соединяем их
-        plot(rpm_level, torque_level, 'Color', colors(i, :), 'LineWidth', 2);
+        plot(rpm_level, torque_level, 'Color', colors(i, :), 'LineWidth', 2, ...
+            'HandleVisibility', 'off');
         fprintf('  Уровень %d: 2 точки (линия)\n', round(level));
     end
 end
 
-% Добавляем кривую максимального момента (ЧЕРНЫМ)
-plot(rpm_max, torque_max, 'k-', 'LineWidth', 3);
+% --- Фиктивный объект для изолиний BSFC (символ в легенде) ---
+h_bsfc = plot(NaN, NaN, 'LineWidth', 2, 'Color', [0 0 1], ...  % синяя линия
+              'DisplayName', 'BSFC двигателя (изолинии)');
+
+% --- Кривая максимального момента (сохраняем хэндл) ---
+h_moment = plot(rpm_max, torque_max, 'k-', 'LineWidth', 3, ...
+                'DisplayName', 'Макс. момент ДВС');
+
+% --- Фиктивный объект для рабочих точек ДВС (красные точки) ---
+h_work = plot(NaN, NaN, 'r.', 'MarkerSize', 15, ...
+              'DisplayName', 'Рабочие точки ДВС');
 
 hold off;
 
@@ -131,13 +134,14 @@ xlabel('Обороты, об/мин', 'FontSize', 12);
 ylabel('Момент, Н·м', 'FontSize', 12);
 title('Изолинии BSFC и кривая максимального момента', 'FontSize', 14);
 
-% Ограничиваем оси: обороты 600-5400, момент 0-150
 xlim([800, 5200]);
 ylim([0, 150]);
 
 grid on;
 box on;
-legend('Изолинии BSFC', 'Макс. момент', 'Location', 'best');
+
+% Легенда только для трёх нужных элементов
+legend([h_bsfc, h_moment, h_work], 'Location', 'best');
 
 %% 4. Вывод статистики
 fprintf('\n--- Статистика ---\n');
