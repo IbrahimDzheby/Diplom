@@ -53,10 +53,13 @@ trisurf(all_triangles, rpm_3d, torque_3d, bsfc_3d, ...
 
 colormap(jet); % Радужная цветовая схема
 colorbar;
-xlabel('Обороты, об/мин', 'FontSize', 12);
-ylabel('Момент, Н·м', 'FontSize', 12);
-zlabel('BSFC, г/кВт·ч', 'FontSize', 12);
-title('3D Поверхность BSFC с треугольной сеткой', 'FontSize', 14);
+
+set(gca, 'FontName', 'GOST Type A', 'FontAngle', 'italic', 'FontSize', 22);
+
+xlabel('Обороты, об/мин');
+ylabel('Момент, Н·м');
+zlabel('BSFC, г/кВт·ч');
+title('3D Поверхность BSFC с треугольной сеткой', 'FontWeight', 'normal');
 
 xlim([800, 5200]);
 ylim([0, 150]);

@@ -24,8 +24,9 @@ figure
 surf(R, T, E)
 
 hold on
-scatter3(ratio, torque, eff, 15, 'k', 'filled')
+scatter3(ratio, torque, eff, 10, 'k', 'filled')
 
+set(gca, 'FontName', 'GOST Type A', 'FontAngle', 'italic', 'FontSize', 20);
 xlabel('Передаточное отношение')
 ylabel('Момент, Нм')
 zlabel('КПД')

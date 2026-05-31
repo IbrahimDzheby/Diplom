@@ -297,12 +297,12 @@ fprintf('Конечный SOC: %.1f %%\n', SOC*100);
 figure;
 yyaxis left;
 plot(t, fuel_flow, 'b-', 'LineWidth', 1.5);
-set(gca, 'FontName', 'GOST Type A',   'FontAngle', 'Italic' , 'FontSize', 20);
-ylabel('Расход топлива, г/с', 'FontName', 'GOST Type A',   'FontAngle', 'Italic' , 'FontSize', 20);
+set(gca, 'FontName', 'GOST Type A', 'FontType', 'Italic'  , 'FontSize', 20);
+ylabel('Расход топлива, г/с', 'FontName', 'GOST Type A', 'FontType', 'Italic'  , 'FontSize', 20);
 yyaxis right;
 plot(t, mg_power_points, 'r-', 'LineWidth', 1.5);
-ylabel('Мощность МГ, кВт', 'FontName', 'GOST Type A',   'FontAngle', 'Italic' , 'FontSize', 20);
-xlabel('Время, с', 'FontName', 'GOST Type A',   'FontAngle', 'Italic' , 'FontSize', 20);
+ylabel('Мощность МГ, кВт', 'FontName', 'GOST Type A', 'FontType', 'Italic'  , 'FontSize', 20);
+xlabel('Время, с', 'FontName', 'GOST Type A', 'FontType', 'Italic'  , 'FontSize', 20);
 grid on;
 
 % 2. SOC
@@ -310,17 +310,17 @@ figure;
 plot(t, SOC_history*100, 'b-', 'LineWidth', 1.5);
 grid on;
 set(gcf, 'Units', 'inches', 'Position', [1, 1, 12, 4]);
-set(gca, 'FontName', 'GOST Type A',   'FontAngle', 'Italic' , 'FontSize', 20);
-xlabel('Время, с', 'FontName', 'GOST Type A',   'FontAngle', 'Italic' , 'FontSize', 20);
-ylabel('SOC, %', 'FontName', 'GOST Type A',   'FontAngle', 'Italic' , 'FontSize', 20);
+set(gca, 'FontName', 'GOST Type A', 'FontType', 'Italic'  , 'FontSize', 20);
+xlabel('Время, с', 'FontName', 'GOST Type A', 'FontType', 'Italic'  , 'FontSize', 20);
+ylabel('SOC, %', 'FontName', 'GOST Type A', 'FontType', 'Italic'  , 'FontSize', 20);
 
 % 3. Профиль скорости
 figure;
 plot(t, v*3.6, 'b-', 'LineWidth', 1.5);
 set(gcf, 'Units', 'inches', 'Position', [1, 1, 12, 4]);
-set(gca, 'FontName', 'GOST Type A',   'FontAngle', 'Italic' , 'FontSize', 20);
-xlabel('Время, с', 'FontName', 'GOST Type A',   'FontAngle', 'Italic' , 'FontSize', 20);
-ylabel('Скорость, км/ч', 'FontName', 'GOST Type A',   'FontAngle', 'Italic' , 'FontSize', 20);
+set(gca, 'FontName', 'GOST Type A', 'FontType', 'Italic'  , 'FontSize', 20);
+xlabel('Время, с', 'FontName', 'GOST Type A', 'FontType', 'Italic'  , 'FontSize', 20);
+ylabel('Скорость, км/ч', 'FontName', 'GOST Type A', 'FontType', 'Italic'  , 'FontSize', 20);
 grid on;
 
 % 4. Рабочие точки ДВС (только тяговый режим)
@@ -385,7 +385,7 @@ if ~isempty(rpm_lines)
             end
             % Подпись прямо на линии
             text(rpm_level(idx_final), torque_level(idx_final), num2str(level), ...
-                'FontName', 'GOST Type A',   'FontAngle', 'Italic' , 'FontSize', 12, ...
+                'FontName', 'GOST Type A', 'FontType', 'Italic'  , 'FontSize', 12, ...
                 'BackgroundColor', 'w', 'EdgeColor', 'none', ...
                 'HorizontalAlignment', 'center', 'VerticalAlignment', 'middle');
                 
@@ -394,13 +394,13 @@ if ~isempty(rpm_lines)
             % Для прямой линии подпись в середине (с проверкой на обороты)
             if mean(rpm_level) > 1000
                 text(mean(rpm_level), mean(torque_level), num2str(level), ...
-                    'FontName', 'GOST Type A',   'FontAngle', 'Italic' , 'FontSize', 12, ...
+                    'FontName', 'GOST Type A', 'FontType', 'Italic'  , 'FontSize', 12, ...
                     'BackgroundColor', 'w', 'EdgeColor', 'none', ...
                     'HorizontalAlignment', 'center', 'VerticalAlignment', 'middle');
             else
                 % Если средние обороты ниже 1000, ставим подпись в середине всё равно
                 text(mean(rpm_level), mean(torque_level), num2str(level), ...
-                    'FontName', 'GOST Type A',   'FontAngle', 'Italic' , 'FontSize', 12, ...
+                    'FontName', 'GOST Type A', 'FontType', 'Italic'  , 'FontSize', 12, ...
                     'BackgroundColor', 'w', 'EdgeColor', 'none', ...
                     'HorizontalAlignment', 'center', 'VerticalAlignment', 'middle');
             end
@@ -418,7 +418,7 @@ scatter(rpm_points(idx_ice), torque_points(idx_ice), 12, 'r', 'filled');
 % Настройки графика
 set(gcf, 'Units', 'inches', 'Position', [1, 1, 12, 8]);
 % Настройка шрифта для осей, подписей и заголовка
-set(gca, 'FontName', 'GOST Type A',   'FontAngle', 'Italic' , 'FontSize', 20);
+set(gca, 'FontName', 'GOST Type A', 'FontType', 'Italic'  , 'FontSize', 20);
 xlabel('Обороты ДВС, об/мин', 'FontSize', 20);
 ylabel('Крутящий момент ДВС, Н·м', 'FontSize', 20);
 xlim([500 5500]);

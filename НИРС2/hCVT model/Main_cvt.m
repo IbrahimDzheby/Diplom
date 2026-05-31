@@ -73,7 +73,7 @@ cvt_eta_grid = reshape(cvt_eta_all, length(cvt_torque_vec), length(cvt_ratio_vec
 cvt_eta_surf = griddedInterpolant({cvt_ratio_vec, cvt_torque_vec}, cvt_eta_grid, 'linear', 'none');
 
 %% WLTP цикл
-data = readtable('WLTP_road.xlsx');
+data = readtable('WLTP.xlsx');
 
 t = data.Time;        % [s]
 v = data.Speed / 3.6; % [m/s]
@@ -284,6 +284,43 @@ grid on;
 box on;
 
 hold off;
+
+%% Статистика BSFC по рабочим точкам ДВС (исключая холостой ход)
+% Фильтр: обороты >= 800, момент >= 10 Н·м
+valid_mask = (rpm_points >= 800) & (torque_points >= 10);
+rpm_filtered = rpm_points(valid_mask);
+torque_filtered = torque_points(valid_mask);
+
+bsfc_valid = [];
+for i = 1:length(rpm_filtered)
+    bsfc_val = BSFC(rpm_filtered(i), torque_filtered(i));
+    if ~isnan(bsfc_val)
+        bsfc_valid(end+1) = bsfc_val;
+    end
+end
+
+if ~isempty(bsfc_valid)
+    bsfc_min = min(bsfc_valid);
+    bsfc_max = max(bsfc_valid);
+    bsfc_mean = mean(bsfc_valid);
+    bsfc_std  = std(bsfc_valid);
+    
+    fprintf('\n========== Статистика BSFC (только нагрузочные точки) ==========\n');
+    fprintf('Учтено точек: %d (из %d рабочих точек после фильтрации)\n', ...
+        length(bsfc_valid), length(rpm_filtered));
+    fprintf('Минимальный BSFC: %.2f г/(кВт·ч)\n', bsfc_min);
+    fprintf('Максимальный BSFC: %.2f г/(кВт·ч)\n', bsfc_max);
+    fprintf('Средний BSFC: %.2f г/(кВт·ч)\n', bsfc_mean);
+    fprintf('Стандартное отклонение: %.2f г/(кВт·ч)\n', bsfc_std);
+    fprintf('================================================================\n');
+    
+    % Рекомендуемый коэффициент s для ECMS (в г/(кВт·с))
+    s_recommended = bsfc_mean / 3600;
+    fprintf('Рекомендуемый эквивалентный фактор s = %.4f г/(кВт·с) (или %.1f г/(кВт·ч))\n', ...
+        s_recommended, bsfc_mean);
+else
+    warning('Не найдено корректных точек BSFC для статистики.');
+end
 
 %% Интеграция
 fuel_total = sum(fuel_flow .* dt); % [г]
