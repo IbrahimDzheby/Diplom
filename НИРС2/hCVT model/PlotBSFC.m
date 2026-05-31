@@ -59,7 +59,7 @@ set(gca, 'FontName', 'GOST Type A', 'FontAngle', 'italic', 'FontSize', 22);
 xlabel('Обороты, об/мин');
 ylabel('Момент, Н·м');
 zlabel('BSFC, г/кВт·ч');
-title('3D Поверхность BSFC с треугольной сеткой', 'FontWeight', 'normal');
+title('Поверхность BSFC', 'FontWeight', 'normal');
 
 xlim([800, 5200]);
 ylim([0, 150]);

@@ -30,6 +30,7 @@ set(gca, 'FontName', 'GOST Type A', 'FontAngle', 'italic', 'FontSize', 20);
 xlabel('Передаточное отношение')
 ylabel('Момент, Нм')
 zlabel('КПД')
+title('Поверхность эффективности вариатора', 'FontWeight', 'normal');
 
 xlim([0.4 2.6])
 ylim([0 180])

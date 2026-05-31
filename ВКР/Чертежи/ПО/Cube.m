@@ -1,15 +1,15 @@
 clear; close all; clc;
 
 % --- Единый шрифт ГОСТ Type A (наклонный) ---
-set(0, 'DefaultTextFontSize', 14);
+set(0, 'DefaultTextFontSize', 22);
 set(0, 'DefaultTextFontName', 'GOST Type A');
 set(0, 'DefaultTextFontAngle', 'italic');
-set(0, 'DefaultAxesFontSize', 14);
+set(0, 'DefaultAxesFontSize', 22);
 set(0, 'DefaultAxesFontName', 'GOST Type A');
 set(0, 'DefaultAxesFontAngle', 'italic');
 
 % --- Размер сетки ---
-n = 5;                         % 5×5×5 = 125 точек
+n = 4;                         % 5×5×5 = 125 точек
 coords = linspace(0, 1, n);
 
 % --- Узлы сетки ---
@@ -57,7 +57,7 @@ for i = 1:n
 end
 
 % 2. Синие точки в узлах
-scatter3(x_vec, y_vec, z_vec, 5, 'b', 'filled', ...
+scatter3(x_vec, y_vec, z_vec, 10, 'b', 'filled', ...
          'MarkerEdgeColor', 'b', 'MarkerFaceColor', 'b');
 
 % 3. Основной контур куба (box on) – все 12 рёбер чёрные
@@ -75,7 +75,7 @@ plot3([0 1], [0 0], [1 1], 'Color', [0.85 0.85 0.85], 'LineWidth', 0.01, 'Handle
 xlabel('Ёмкость батареи, SoC %');
 ylabel('Ход педали, h %');
 zlabel('Скорость, V км/ч');
-title('Пространство рабочик точек');
+title('Пространство рабочик точек', 'FontWeight', 'normal');
 
 xlim([0 1]); ylim([0 1]); zlim([0 1]);
 daspect([1 1 1]);

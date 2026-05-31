@@ -284,7 +284,7 @@ grid on; set(gca, 'FontName', font_name, 'FontAngle', 'Italic', 'FontSize', font
 
 % 2. Передаточное число вариатора
 figure('Name', 'Передаточное число CVT', 'NumberTitle', 'off');
-plot(t, i_cvt_history, 'g-', 'LineWidth', 3);
+plot(t, i_cvt_history, '-','Color', [1 0.5 0], 'LineWidth', 3);
 xlabel('Время, с', 'FontName', font_name, 'FontAngle', 'Italic', 'FontSize', font_size);
 ylabel('i_{CVT}', 'FontName', font_name, 'FontAngle', 'Italic', 'FontSize', font_size);
 title('Передаточное число вариатора', 'FontName', font_name, 'FontAngle', 'Italic', 'FontSize', font_size, 'FontWeight', 'normal');
