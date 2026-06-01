@@ -323,12 +323,21 @@
     </mxGraphModel>
   </diagram>
   <diagram name="Части" id="qU08Xi1wl660LJGr6o9e">
-    <mxGraphModel dx="1277" dy="740" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="4681" math="0" shadow="0">
+    <mxGraphModel dx="815" dy="943" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="3300" pageHeight="4681" math="0" shadow="0">
       <root>
         <mxCell id="CBjeNMQ2Lrh5itBEwk0L-0" />
         <mxCell id="CBjeNMQ2Lrh5itBEwk0L-1" parent="CBjeNMQ2Lrh5itBEwk0L-0" />
-        <mxCell id="ODWqFfFwnywALZCRyWpU-0" parent="CBjeNMQ2Lrh5itBEwk0L-1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
-          <mxGeometry height="60" width="120" x="470" y="170" as="geometry" />
+        <mxCell id="d1cciZgEF46y3vLzvLjC-0" parent="CBjeNMQ2Lrh5itBEwk0L-1" style="text;html=1;whiteSpace=wrap;strokeColor=#d6b656;fillColor=#FFF8E5;align=left;verticalAlign=middle;rounded=0;fontFamily=GOST Type A;fontSize=13;fontStyle=2;strokeWidth=0.75;fontColor=#2B2B2B;spacingLeft=5;" value="Расход топлива (вариатор):&lt;div&gt;В городе 7,7 л на 100 км.&lt;/div&gt;&lt;div&gt;На трассе 6,35 л на 100 км.&lt;/div&gt;&lt;div&gt;Смешанный 6,53 л на 100 км.&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="160" x="200" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="d1cciZgEF46y3vLzvLjC-1" parent="CBjeNMQ2Lrh5itBEwk0L-1" style="text;whiteSpace=wrap;html=1;fillColor=#F6FFF4;strokeColor=#82b366;labelBackgroundColor=none;fontColor=#2B2B2B;align=left;spacingLeft=5;" value="&lt;div style=&quot;forced-color-adjust: none; color: rgb(43, 43, 43); font-family: &amp;quot;GOST Type A&amp;quot;; font-size: 13px; font-style: italic; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;Выигрыш гибридного решения:&lt;br style=&quot;forced-color-adjust: none;&quot;&gt;на 36% меньше расход в городе.&lt;/div&gt;&lt;div style=&quot;forced-color-adjust: none; color: rgb(43, 43, 43); font-family: &amp;quot;GOST Type A&amp;quot;; font-size: 13px; font-style: italic; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;на 7% меньше расход на трассе.&lt;/div&gt;&lt;div style=&quot;forced-color-adjust: none; color: rgb(43, 43, 43); font-family: &amp;quot;GOST Type A&amp;quot;; font-size: 13px; font-style: italic; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;на 12% меньше расход в целом.&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="180" x="200" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="d1cciZgEF46y3vLzvLjC-2" parent="CBjeNMQ2Lrh5itBEwk0L-1" style="text;html=1;whiteSpace=wrap;strokeColor=#6c8ebf;fillColor=#EBF4FF;align=left;verticalAlign=middle;rounded=0;fontFamily=GOST Type A;fontSize=13;fontStyle=2;strokeWidth=0.75;fontColor=#2B2B2B;spacingLeft=5;" value="&lt;div&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;Расход топлива (гибрид):&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;В городе 4,94 л на 100 км.&lt;/div&gt;&lt;div&gt;На трассе 5,91 л на 100 км.&lt;/div&gt;&lt;/div&gt;&lt;div&gt;Смешанный 5,77 л на 100 км.&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="160" x="200" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="d1cciZgEF46y3vLzvLjC-3" parent="CBjeNMQ2Lrh5itBEwk0L-1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;fontFamily=GOST Type A;fontSize=13;fontStyle=2;strokeWidth=0.75;fontColor=#2B2B2B;spacingLeft=5;" value="На графиках приведены результаты моделирования по циклам WLTP.&lt;div&gt;Для расчетов применялся бензин АИ-95.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Длительность городского цикла 600 с.&lt;/div&gt;&lt;div&gt;Длительность загородноых циклов 1200 с.&lt;/div&gt;" vertex="1">
+          <mxGeometry height="100" width="210" x="200" y="-20" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

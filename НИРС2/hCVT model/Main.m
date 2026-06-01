@@ -4,8 +4,8 @@ clc; clear; close all;
 vehicle = struct();
 vehicle.m     = 1600;
 vehicle.r     = 0.285;
-vehicle.Cr    = 0.015;
-vehicle.Cd    = 0.32;
+vehicle.Cr    = 0.012;
+vehicle.Cd    = 0.31;
 vehicle.A     = 2.2;
 vehicle.rho   = 1.225;
 vehicle.g     = 9.81;
@@ -68,7 +68,7 @@ hybrid.SOC_init = 0.60;   % начальный SOC
 hybrid.s_mid = 0.077;
 
 %% ========== Цикл WLTP ==========
-data = readtable('WLTP_short.xlsx');
+data = readtable('WLTP.xlsx');
 t = data.Time;
 v = data.Speed / 3.6;        % м/с
 dt = [0; diff(t)];
@@ -87,6 +87,9 @@ mode_points = zeros(N,1);        % режим: 0-стоп, 1-рекуперац�
 SOC_history = zeros(N,1);
 SOC = hybrid.SOC_init;
 SOC_history(1) = SOC;
+
+total_braking_energy_wheels = 0;   % механическая энергия торможения на колёсах (Дж)
+recovered_energy = 0;              % энергия, запасённая в батарее (Дж)
 
 fprintf('Симуляция запущена...\n');
 tic;   % запуск таймера
@@ -185,6 +188,15 @@ for k = 2:N
         rpm_points(k) = best_rpm_brake;
         torque_points(k) = best_T_ice_brake;
         SOC_history(k) = SOC;
+
+        % Мощность, отбираемая от колёс (положительная)
+        P_brake_wheel = -T_wheel_brake * wk;
+        total_braking_energy_wheels = total_braking_energy_wheels + P_brake_wheel * dt(k);
+        
+        % Мощность, идущая в батарею (best_P_batt отрицательна, берём -)
+        recovered_energy = recovered_energy + (-best_P_batt) * 1000 * dt(k);  
+        % best_P_batt в кВт, умножаем на 1000 для перевода в Вт -> Дж
+
         continue;
     end
     
@@ -287,6 +299,9 @@ fuel_l_corr = fuel_total_corrected / 745;
 result_real = fuel_l_real / (distance / 100000);  % л/100 км
 result_corr = fuel_l_corr / (distance / 100000);
 
+regen_percent = (recovered_energy / total_braking_energy_wheels) * 100;
+fprintf('Рекуперация энергии торможения: %.1f %%\n', regen_percent);
+
 fprintf('Реальный расход: %.2f л/100км\n', result_real);
 fprintf('Скорректированный расход (с учётом SOC): %.2f л/100км\n', ...
     result_corr);
@@ -295,32 +310,51 @@ fprintf('Конечный SOC: %.1f %%\n', SOC*100);
 %% ========== Графики ==========
 % 1. Мгновенный расход топлива и мощность МГ
 figure;
-yyaxis left;
-plot(t, fuel_flow, 'b-', 'LineWidth', 1.5);
-set(gca, 'FontName', 'GOST Type A',   'FontAngle', 'Italic' , 'FontSize', 20);
-ylabel('Расход топлива, г/с', 'FontName', 'GOST Type A',   'FontAngle', 'Italic' , 'FontSize', 20);
-yyaxis right;
-plot(t, mg_power_points, 'r-', 'LineWidth', 1.5);
-ylabel('Мощность МГ, кВт', 'FontName', 'GOST Type A',   'FontAngle', 'Italic' , 'FontSize', 20);
-xlabel('Время, с', 'FontName', 'GOST Type A',   'FontAngle', 'Italic' , 'FontSize', 20);
-grid on;
 
+title('График расхода топлива и мощности МГ', 'FontName', 'GOST Type A', 'FontAngle', 'Italic','FontSize', 20, 'FontWeight', 'normal');
+set(gca, 'FontName', 'GOST Type A', 'FontAngle', 'Italic', 'FontSize', 20);
+
+yyaxis left
+plot(t, fuel_flow, 'b-', 'LineWidth', 1.5);
+ylabel('Расход топлива, г/с', ...
+    'FontName', 'GOST Type A', ...
+    'FontAngle', 'Italic', ...
+    'FontSize', 20);
+
+ax = gca;
+ax.YAxis(1).Color = 'b';   % цвет левой шкалы
+
+yyaxis right
+plot(t, mg_power_points, 'r-', 'LineWidth', 1.5);
+ylabel('Мощность МГ, кВт', ...
+    'FontName', 'GOST Type A', ...
+    'FontAngle', 'Italic', ...
+    'FontSize', 20);
+
+ax.YAxis(2).Color = 'r';   % цвет правой шкалы
+
+xlabel('Время, с', ...
+    'FontName', 'GOST Type A', ...
+    'FontAngle', 'Italic', ...
+    'FontSize', 20);
+
+grid on;
 % 2. SOC
 figure;
-plot(t, SOC_history*100, 'b-', 'LineWidth', 1.5);
+plot(t, SOC_history*100, 'b-', 'LineWidth', 2);
+set(gca, 'FontName', 'GOST Type A', 'FontAngle', 'Italic', 'FontSize', 30);
+xlabel('Время, с', 'FontName', 'GOST Type A',   'FontAngle', 'Italic' , 'FontSize', 30);
+ylabel('SOC, %', 'FontName', 'GOST Type A',   'FontAngle', 'Italic' , 'FontSize', 30);
+title('График изменения заряда аккумулятора', 'FontName', 'GOST Type A', 'FontAngle', 'Italic','FontSize', 30, 'FontWeight', 'normal');
 grid on;
-set(gcf, 'Units', 'inches', 'Position', [1, 1, 12, 4]);
-set(gca, 'FontName', 'GOST Type A',   'FontAngle', 'Italic' , 'FontSize', 20);
-xlabel('Время, с', 'FontName', 'GOST Type A',   'FontAngle', 'Italic' , 'FontSize', 20);
-ylabel('SOC, %', 'FontName', 'GOST Type A',   'FontAngle', 'Italic' , 'FontSize', 20);
 
 % 3. Профиль скорости
 figure;
 plot(t, v*3.6, 'b-', 'LineWidth', 1.5);
-set(gcf, 'Units', 'inches', 'Position', [1, 1, 12, 4]);
-set(gca, 'FontName', 'GOST Type A',   'FontAngle', 'Italic' , 'FontSize', 20);
+set(gca, 'FontName', 'GOST Type A', 'FontAngle', 'Italic', 'FontSize', 20);
 xlabel('Время, с', 'FontName', 'GOST Type A',   'FontAngle', 'Italic' , 'FontSize', 20);
 ylabel('Скорость, км/ч', 'FontName', 'GOST Type A',   'FontAngle', 'Italic' , 'FontSize', 20);
+title('Профиль скорости', 'FontName', 'GOST Type A', 'FontAngle', 'Italic','FontSize', 20, 'FontWeight', 'normal');
 grid on;
 
 % 4. Рабочие точки ДВС (только тяговый режим)
@@ -341,6 +375,7 @@ torque_max_curve = engine.torque_tmax_curve;
 
 figure('Name', 'Рабочие точки ДВС на карте BSFC', 'NumberTitle', 'off',...
     'Color', 'w');
+
 set(gcf, 'Position', [100, 100, 900, 700]);
 hold on;
 
@@ -416,11 +451,10 @@ idx_ice = (mode_points == 2);
 scatter(rpm_points(idx_ice), torque_points(idx_ice), 12, 'r', 'filled');
 
 % Настройки графика
-set(gcf, 'Units', 'inches', 'Position', [1, 1, 12, 8]);
-% Настройка шрифта для осей, подписей и заголовка
-set(gca, 'FontName', 'GOST Type A',   'FontAngle', 'Italic' , 'FontSize', 20);
-xlabel('Обороты ДВС, об/мин', 'FontSize', 20);
-ylabel('Крутящий момент ДВС, Н·м', 'FontSize', 20);
+set(gca, 'FontName', 'GOST Type A', 'FontAngle', 'Italic', 'FontSize', 20);
+xlabel('Обороты ДВС, об/мин', 'FontName', 'GOST Type A', 'FontAngle', 'Italic', 'FontSize', 20);
+ylabel('Крутящий момент ДВС, Н·м', 'FontName', 'GOST Type A', 'FontAngle', 'Italic', 'FontSize', 20);
+title('График рабочих точек ДВС', 'FontName', 'GOST Type A', 'FontAngle', 'Italic','FontSize', 20, 'FontWeight', 'normal');
 xlim([500 5500]);
 ylim([0 150]);
 grid on;

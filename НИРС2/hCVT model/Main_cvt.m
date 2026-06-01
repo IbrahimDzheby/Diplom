@@ -4,8 +4,8 @@ clc; clear; close all;
 m = 1600;
 r = 0.285;
 
-Cr = 0.015;
-Cd = 0.32;
+Cr = 0.012;
+Cd = 0.31;
 A  = 2.2;
 rho = 1.225;
 g = 9.81;
@@ -73,7 +73,7 @@ cvt_eta_grid = reshape(cvt_eta_all, length(cvt_torque_vec), length(cvt_ratio_vec
 cvt_eta_surf = griddedInterpolant({cvt_ratio_vec, cvt_torque_vec}, cvt_eta_grid, 'linear', 'none');
 
 %% WLTP цикл
-data = readtable('WLTP.xlsx');
+data = readtable('WLTP_city.xlsx');
 
 t = data.Time;        % [s]
 v = data.Speed / 3.6; % [m/s]
@@ -203,9 +203,10 @@ end
 
 figure;
 plot(t, fuel_flow, 'b-', 'LineWidth', 1.5);
-set(gca, 'FontName', 'Times New Roman', 'FontSize', 20);
-ylabel('Расход топлива, г/с', 'FontName', 'Times New Roman', 'FontSize', 20);
-xlabel('Время, с', 'FontName', 'Times New Roman', 'FontSize', 20);
+set(gca, 'FontName', 'GOST type A', 'FontAngle', 'Italic', 'FontSize', 22);
+ylabel('Расход топлива, г/с', 'FontName', 'GOST type A', 'FontAngle', 'Italic', 'FontSize', 22);
+xlabel('Время, с', 'FontName', 'GOST type A', 'FontAngle', 'Italic', 'FontSize', 22);
+title('График расхода топлива', 'FontName', 'GOST type A', 'FontAngle', 'Italic', 'FontSize', 22, 'FontWeight', 'normal');
 grid on;
 
 % figure;
@@ -275,7 +276,7 @@ scatter(rpm_points, torque_points, 12, 'r', 'filled');
 % Настройки графика
 set(gcf, 'Units', 'inches', 'Position', [1, 1, 12, 8]);
 % Настройка шрифта для осей, подписей и заголовка
-set(gca, 'FontName', 'Times New Roman', 'FontSize', 20);
+set(gca, 'FontName', 'GOST type A', 'FontAngle', 'Italic', 'FontSize', 20);
 xlabel('Обороты ДВС, об/мин', 'FontSize', 20);
 ylabel('Крутящий момент ДВС, Н·м', 'FontSize', 20);
 xlim([500 5500]);

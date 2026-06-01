@@ -1,5 +1,13 @@
 clc; clear; close all;
 
+% --- Единый шрифт ГОСТ Type A (наклонный) ---
+set(0, 'DefaultTextFontSize', 16);
+set(0, 'DefaultTextFontName', 'GOST Type A');
+set(0, 'DefaultTextFontAngle', 'italic');
+set(0, 'DefaultAxesFontSize', 16);
+set(0, 'DefaultAxesFontName', 'GOST Type A');
+set(0, 'DefaultAxesFontAngle', 'italic');
+
 %% Исходные данные
 
 global k_aux k_mt cvt_torque_vec cvt_eta_surf %#ok<GVMIS>
@@ -47,11 +55,12 @@ figure;
 grid on;
 xlabel('Обороты двигателя, об/мин');
 ylabel('Момент, Нм');
+title('Моментная характеристика МГ','FontWeight', 'normal');
 
 hold on;
 
-plot(RPM, Torque, '-b', 'LineWidth', 2);
-plot(RPM, TorquePeak, '--', 'Color', [1 0.5 0], 'LineWidth', 2);
+plot(RPM, Torque, '-b', 'LineWidth', 3);
+plot(RPM, TorquePeak, '--', 'Color', [1 0.5 0], 'LineWidth', 3);
 
 legend('Номинальный момент', 'Пиковый момент');
 hold off;
@@ -65,11 +74,12 @@ figure;
 grid on;
 xlabel('Обороты двигателя, об/мин');
 ylabel('Мощность, кВт');
+title('Мощностная характеристика МГ','FontWeight', 'normal');
 
 hold on;
 
-plot(RPM, Power, '-b', 'LineWidth', 2);
-plot(RPM, PowerPeak, '--', 'Color', [1 0.5 0], 'LineWidth', 2);
+plot(RPM, Power, '-b', 'LineWidth', 3);
+plot(RPM, PowerPeak, '--', 'Color', [1 0.5 0], 'LineWidth', 3);
 
 legend('Номинальная мощность', 'Пиковая мощность');
 hold off;
@@ -129,19 +139,20 @@ figure;
 grid on;
 xlabel('Скорость, км/ч')
 ylabel('Тяга на колёсах, Н')
+title('Тяговая характеристика МГ','FontWeight', 'normal');
 
 xlim([0 250]); % График до 200 км/ч
 
 hold on;
 
 % Правая граница (max RPM)
-plot(v_right, F_right, 'blue--', 'LineWidth', 1);
+plot(v_right, F_right, 'blue--', 'LineWidth', 2);
 
 % Верхняя (низшая передача)
-plot(v_low,  F_low, '-b', 'LineWidth', 2);
+plot(v_low,  F_low, '-b', 'LineWidth', 3);
 
 % Нижняя (высшая передача)
-plot(v_high, F_high, '-b', 'LineWidth', 2);
+plot(v_high, F_high, '-b', 'LineWidth', 3);
 
 % Сопротивление движению
 plot(v_res_kmh, F_res, '-r', 'LineWidth', 2);
@@ -179,30 +190,42 @@ figure;
 grid on;
 xlabel('Скорость, км/ч')
 ylabel('Динамический фактор')
+title('Динамическая характеристика МГ','FontWeight', 'normal');
 
 xlim([0 250]); % График до 200 км/ч
 
 hold on;
 
 % Правая граница (max RPM)
-plot(v_right, DF_right_peak, '--', 'Color', [1 0.5 0], 'LineWidth', 1);
-plot(v_right, DF_right, 'blue--', 'LineWidth', 1);
+plot(v_right, DF_right_peak, '--', 'Color', [1 0.5 0], 'LineWidth', 2);
+plot(v_right, DF_right, 'blue--', 'LineWidth', 2);
 
 % Верхняя (низшая передача)
-plot(v_low,   DF_low_peak, '-', 'Color', [1 0.5 0], 'LineWidth', 2);
-plot(v_low,   DF_low, '-b', 'LineWidth', 2);
+plot(v_low,   DF_low_peak, '-', 'Color', [1 0.5 0], 'LineWidth', 3);
+plot(v_low,   DF_low, '-b', 'LineWidth', 3);
 
 % Нижняя (высшая передача)
-plot(v_high,  DF_high_peak, '-', 'Color', [1 0.5 0], 'LineWidth', 2);
-plot(v_high,  DF_high, '-b', 'LineWidth', 2);
+plot(v_high,  DF_high_peak, '-', 'Color', [1 0.5 0], 'LineWidth', 3);
+plot(v_high,  DF_high, '-b', 'LineWidth', 3);
 
 D_16 = 0.1 + Cr;
 
-plot([0 250], [D_16 D_16], '--r', 'LineWidth', 1.5);
+plot([0 250], [D_16 D_16], '--r', 'LineWidth', 2);
+
+grayColor = [0.5 0.5 0.5];
+
+h1 = plot(NaN, NaN, '--', 'Color', grayColor, 'LineWidth', 2);
+h2 = plot(NaN, NaN, '-',  'Color', grayColor, 'LineWidth', 2);
+h3 = plot(NaN, NaN, 'r--', 'LineWidth', 2);
+
+legend([h1 h2 h3], ...
+       {'max обороты', 'min и max передача', 'подъем 10%'});
+
+ylim([-0.12 0.22]);
 
 hold off;
 
-legend('max обороты пик Момент','max обороты ном Момент','min и max передача пик Момент','min и max передача ном Момент', '', '', 'Подъем 10%');
+%legend('max обороты пик Момент','max обороты ном Момент','min и max передача пик Момент','min и max передача ном Момент', '', '', 'Подъем 10%');
 
 %% Расчет ускорения автомобиля
 
@@ -222,18 +245,19 @@ figure;
 grid on;
 xlabel('Скорость, км/ч')
 ylabel('Ускорение, м/с^2')
+title('Характеристика ускорения МГ','FontWeight', 'normal');
 xlim([0 250])
 
 hold on;
 
 % Правая граница (max RPM)
-plot(v_right, a_right, 'blue--', 'LineWidth', 1);
+plot(v_right, a_right, 'blue--', 'LineWidth', 2);
 
 % Низшая передача
-plot(v_low,  a_low,  '-b', 'LineWidth', 2);
+plot(v_low,  a_low,  '-b', 'LineWidth', 3);
 
 % Высшая передача
-plot(v_high, a_high, '-b', 'LineWidth', 2);
+plot(v_high, a_high, '-b', 'LineWidth', 3);
 
 hold off;
 

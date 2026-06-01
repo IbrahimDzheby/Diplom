@@ -1,5 +1,13 @@
 clc; clear; close all;
 
+% --- Единый шрифт ГОСТ Type A (наклонный) ---
+set(0, 'DefaultTextFontSize', 16);
+set(0, 'DefaultTextFontName', 'GOST Type A');
+set(0, 'DefaultTextFontAngle', 'italic');
+set(0, 'DefaultAxesFontSize', 16);
+set(0, 'DefaultAxesFontName', 'GOST Type A');
+set(0, 'DefaultAxesFontAngle', 'italic');
+
 %% Исходные данные
 
 global k_aux k_mt cvt_torque_vec cvt_eta_surf %#ok<GVMIS>
@@ -57,14 +65,14 @@ grid on
 
 % --- Левая ось Y (Момент) ---
 yyaxis left
-plot(RPM, Torque, '-b', 'LineWidth', 2)
+plot(RPM, Torque, '-b', 'LineWidth', 3)
 ylabel('Момент, Нм')
 set(gca);
 ylim([(min(Torque)-5) (max(Torque)+5)]);
 
 % --- Правая ось Y (Мощность) ---
 yyaxis right
-plot(RPM, Power, '-r', 'LineWidth', 2)
+plot(RPM, Power, '-r', 'LineWidth', 3)
 ylabel('Мощность, кВт')
 set(gca);
 ylim([0 (max(Power)+5)]);
@@ -75,9 +83,10 @@ legend('Момент', 'Мощность', 'Location', 'southeast')
 
 figure;
 
-plot(RPM, Torque, '-b', 'LineWidth', 2);
+plot(RPM, Torque, '-b', 'LineWidth', 3);
 xlabel('Обороты двигателя, об/мин');
 ylabel('Момент, Нм');
+title('Моментная характеристика ДВС','FontWeight', 'normal');
 grid on;
 
 set(gca);
@@ -135,22 +144,23 @@ figure;
 grid on;
 xlabel('Скорость, км/ч')
 ylabel('Тяга на колёсах, Н')
+title('Тяговая характеристика ДВС','FontWeight', 'normal');
 
 xlim([0 250]); % График до 200 км/ч
 
 hold on;
 
 % Левая граница (min RPM)
-plot(v_left,  F_left,  'blue--', 'LineWidth', 1);
+plot(v_left,  F_left,  'blue--', 'LineWidth', 2);
 
 % Правая граница (max RPM)
-plot(v_right, F_right, 'blue--', 'LineWidth', 1);
+plot(v_right, F_right, 'blue--', 'LineWidth', 2);
 
 % Верхняя (низшая передача)
-plot(v_low,  F_low, '-b', 'LineWidth', 2);
+plot(v_low,  F_low, '-b', 'LineWidth', 3);
 
 % Нижняя (высшая передача)
-plot(v_high, F_high, '-b', 'LineWidth', 2);
+plot(v_high, F_high, '-b', 'LineWidth', 3);
 
 % Сопротивление движению
 plot(v_res_kmh, F_res, '-r', 'LineWidth', 2);
@@ -180,26 +190,27 @@ figure;
 grid on;
 xlabel('Скорость, км/ч')
 ylabel('Динамический фактор')
+title('Динамическая характеристика ДВС','FontWeight', 'normal');
 
 xlim([0 250]); % График до 200 км/ч
 
 hold on;
 
 % Левая граница (min RPM)
-plot(v_left,  DF_left,  'blue--', 'LineWidth', 1);
+plot(v_left,  DF_left,  'blue--', 'LineWidth', 2);
 
 % Правая граница (max RPM)
-plot(v_right, DF_right, 'blue--', 'LineWidth', 1);
+plot(v_right, DF_right, 'blue--', 'LineWidth', 2);
 
 % Верхняя (низшая передача)
-plot(v_low,   DF_low, '-b', 'LineWidth', 2);
+plot(v_low,   DF_low, '-b', 'LineWidth', 3);
 
 % Нижняя (высшая передача)
-plot(v_high,  DF_high, '-b', 'LineWidth', 2);
+plot(v_high,  DF_high, '-b', 'LineWidth', 3);
 
 D_16 = 0.1 + Cr;
 
-plot([0 250], [D_16 D_16], '--r', 'LineWidth', 1.5);
+plot([0 250], [D_16 D_16], '--r', 'LineWidth', 2);
 
 hold off;
 
@@ -225,21 +236,22 @@ figure;
 grid on;
 xlabel('Скорость, км/ч')
 ylabel('Ускорение, м/с^2')
+title('Характеристика ускорения ДВС','FontWeight', 'normal');
 xlim([0 250])
 
 hold on;
 
 % Левая граница (min RPM)
-plot(v_left,  a_left,  'blue--', 'LineWidth', 1);
+plot(v_left,  a_left,  'blue--', 'LineWidth', 2);
 
 % Правая граница (max RPM)
-plot(v_right, a_right, 'blue--', 'LineWidth', 1);
+plot(v_right, a_right, 'blue--', 'LineWidth', 2);
 
 % Низшая передача
-plot(v_low,  a_low,  '-b', 'LineWidth', 2);
+plot(v_low,  a_low,  '-b', 'LineWidth', 3);
 
 % Высшая передача
-plot(v_high, a_high, '-b', 'LineWidth', 2);
+plot(v_high, a_high, '-b', 'LineWidth', 3);
 
 hold off;
 
