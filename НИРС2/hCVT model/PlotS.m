@@ -1,7 +1,7 @@
 clc; clear; close all;
 
 %% 1. Данные для s(SOC)
-SOC_points = [0, 20, 60, 100];
+SOC_points = [0, 30, 60, 100];
 s_points   = [0.193, 0.193, 0.077, 0.059];
 
 SOC_fine = linspace(0, 100, 100);
