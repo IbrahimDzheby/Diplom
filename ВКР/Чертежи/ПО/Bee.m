@@ -1,13 +1,5 @@
 clear; close all; clc;
 
-% --- Единый шрифт ГОСТ Type A (наклонный) ---
-set(0, 'DefaultTextFontSize', 22);
-set(0, 'DefaultTextFontName', 'GOST Type A');
-set(0, 'DefaultTextFontAngle', 'italic');
-set(0, 'DefaultAxesFontSize', 22);
-set(0, 'DefaultAxesFontName', 'GOST Type A');
-set(0, 'DefaultAxesFontAngle', 'italic');
-
 % --- Размер сетки ---
 n = 4;                         % 5×5×5 = 125 точек
 coords = linspace(0, 1, n);
@@ -75,7 +67,6 @@ plot3([0 1], [0 0], [1 1], 'Color', [0.85 0.85 0.85], 'LineWidth', 0.01, 'Handle
 xlabel('Ёмкость батареи, SoC %');
 ylabel('Ход педали, h %');
 zlabel('Скорость, V км/ч');
-title('Пространство оптимальных вариантов', 'FontWeight', 'normal');
 
 xlim([0 1]); ylim([0 1]); zlim([0 1]);
 daspect([1 1 1]);
@@ -92,8 +83,6 @@ zticks([0 1]);
 xticklabels({sprintf('%.0f', soc_min), sprintf('%.0f', soc_max)});
 yticklabels({sprintf('%.0f', pedal_min), sprintf('%.0f', pedal_max)});
 zticklabels({sprintf('%.0f', v_min), sprintf('%.0f', v_max)});
-
-% set(gca, 'XTick', [], 'YTick', [], 'ZTick', []);
 
 view(45, 30);
 hold off;
