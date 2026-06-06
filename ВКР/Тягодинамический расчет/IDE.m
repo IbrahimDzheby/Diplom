@@ -59,23 +59,28 @@ Torque_max_RPM = Torque(end);       % момент при max оборотах
 
 %% Внешняя скоростная характеристика
 
-figure
-xlabel('Обороты двигателя, об/мин')
+figure;
+xlabel('Обороты двигателя, об/мин');
+title('Внешняя скоростная характеристика ДВС','FontWeight', 'normal');
 grid on
 
 % --- Левая ось Y (Момент) ---
 yyaxis left
 plot(RPM, Torque, '-b', 'LineWidth', 3)
 ylabel('Момент, Нм')
-set(gca);
 ylim([(min(Torque)-5) (max(Torque)+5)]);
 
 % --- Правая ось Y (Мощность) ---
 yyaxis right
 plot(RPM, Power, '-r', 'LineWidth', 3)
 ylabel('Мощность, кВт')
-set(gca);
 ylim([0 (max(Power)+5)]);
+
+% Чёрные шкалы для обеих осей и оси X
+ax = gca;
+ax.YAxis(1).Color = 'k';   % левая ось Y
+ax.YAxis(2).Color = 'k';   % правая ось Y
+ax.XAxis.Color = 'k';      % ось X
 
 legend('Момент', 'Мощность', 'Location', 'southeast')
 
